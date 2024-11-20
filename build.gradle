@@ -17,11 +17,11 @@ buildscript {
 allprojects {
 
     ext {
-        appName = 'Shattered Pixel Dungeon'
-        appPackageName = 'com.shatteredpixel.shatteredpixeldungeon'
+        appName = 'Props Pixel Dungeon'
+        appPackageName = 'com.ruochen.propspixeldungeon'
 
-        appVersionCode = 802
-        appVersionName = '2.5.4'
+        appVersionCode = 241120
+        appVersionName = '1.0.0 based 2.5.4'
 
         appJavaCompatibility = JavaVersion.VERSION_1_8
 
