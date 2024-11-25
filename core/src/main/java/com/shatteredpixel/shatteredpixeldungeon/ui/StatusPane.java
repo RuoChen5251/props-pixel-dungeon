@@ -26,6 +26,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -60,6 +62,7 @@ public class StatusPane extends Component {
 	private Image rawShielding;
 	private Image shieldedHP;
 	private Image hp;
+	private Image hungry;
 	private BitmapText hpText;
 	private Button heroInfoOnBar;
 
@@ -128,6 +131,9 @@ public class StatusPane extends Component {
 		if (large)  hp = new Image(asset, 0, 103, 128, 9);
 		else        hp = new Image(asset, 0, 36, 50, 4);
 		add( hp );
+
+		if (!large) hungry = new Image(asset,0,45,44,3);
+		add(hungry);
 
 		hpText = new BitmapText(PixelScene.pixelFont);
 		hpText.alpha(0.6f);
@@ -224,7 +230,7 @@ public class StatusPane extends Component {
 
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
-			buffs.setRect( x + 31, y + 9, 50, 8 );
+			buffs.setRect( x + 31, y + 15, 50, 8 );
 
 			busy.x = x + 1;
 			busy.y = y + 33;
@@ -246,6 +252,8 @@ public class StatusPane extends Component {
 		int health = Dungeon.hero.HP;
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.HT;
+		float maxHungry = Hunger.STARVING;
+		int curHungry = Dungeon.hero.buff(Hunger.class).hunger();
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);
@@ -261,6 +269,7 @@ public class StatusPane extends Component {
 		}
 
 		hp.scale.x = Math.max( 0, (health-shield)/(float)max);
+		hungry.scale.x = curHungry/maxHungry;
 		shieldedHP.scale.x = health/(float)max;
 
 		if (shield > health) {
@@ -338,6 +347,7 @@ public class StatusPane extends Component {
 		hp.alpha(value);
 		hpText.alpha(0.6f*value);
 		exp.alpha(value);
+		hungry.alpha(value);
 		if (expText != null) expText.alpha(0.6f*value);
 		level.alpha(value);
 		compass.alpha(value);
