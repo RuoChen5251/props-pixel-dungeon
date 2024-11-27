@@ -17,7 +17,7 @@ buildscript {
 allprojects {
 
     ext {
-        appName = 'Props Pixel Dungeon'
+        appName = '道具地牢'
         appPackageName = 'com.ruochen.propspixeldungeon'
 
         appVersionCode = 241120

@@ -90,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.Prop;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -175,6 +176,7 @@ public abstract class Char extends Actor {
 	public boolean[] fieldOfView = null;
 	
 	private LinkedHashSet<Buff> buffs = new LinkedHashSet<>();
+	private LinkedHashSet<Prop> props = new LinkedHashSet<>();
 	
 	@Override
 	protected boolean act() {
@@ -990,6 +992,32 @@ public abstract class Char extends Actor {
 	//returns an instance of the specific buff class, if it exists. Not just assignable
 	public synchronized  <T extends Buff> T buff( Class<T> c ) {
 		for (Buff b : buffs) {
+			if (b.getClass() == c) {
+				return (T)b;
+			}
+		}
+		return null;
+	}
+	public synchronized LinkedHashSet<Prop> props() {
+		return new LinkedHashSet<>(props);
+	}
+
+	@SuppressWarnings("unchecked")
+	//returns all buffs assignable from the given buff class
+	public synchronized <T extends Prop> HashSet<T> props( Class<T> c ) {
+		HashSet<T> filtered = new HashSet<>();
+		for (Prop b : props) {
+			if (c.isInstance( b )) {
+				filtered.add( (T)b );
+			}
+		}
+		return filtered;
+	}
+
+	@SuppressWarnings("unchecked")
+	//returns an instance of the specific buff class, if it exists. Not just assignable
+	public synchronized  <T extends Prop> T prop( Class<T> c ) {
+		for (Prop b : props) {
 			if (b.getClass() == c) {
 				return (T)b;
 			}

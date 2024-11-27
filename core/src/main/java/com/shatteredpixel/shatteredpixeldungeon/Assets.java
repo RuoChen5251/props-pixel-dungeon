@@ -96,7 +96,10 @@ public class Assets {
 
 		public static final String RADIAL_MENU      = "interfaces/radial_menu.png";
 	}
-
+	public static class Props {
+		public static final String PROPS_SMALL  = "interfaces/props.png";
+		public static final String PROPS_LARGE  = "interfaces/props.png";
+	}
 	//these points to resource bundles, not raw asset files
 	public static class Messages {
 		public static final String ACTORS   = "messages/actors/actors";
