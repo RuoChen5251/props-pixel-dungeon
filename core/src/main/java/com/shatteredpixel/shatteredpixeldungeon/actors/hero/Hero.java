@@ -2233,9 +2233,10 @@ public class Hero extends Char {
 			BurningBlood bb = prop(BurningBlood.class);
 			if (Random.Float(0,1)<bb.getFinallyRate()){
 				int healAmt = Math.min((int)bb.getFinallyValue(),this.HT-this.HP);
-				this.HP += healAmt;
-				this.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( healAmt ), FloatingText.HEALING );
-
+				if (healAmt>0){
+					this.HP += healAmt;
+					this.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( healAmt ), FloatingText.HEALING );
+				}
 			}
 		}
 
