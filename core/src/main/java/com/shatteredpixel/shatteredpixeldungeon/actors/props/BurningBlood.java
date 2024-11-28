@@ -19,6 +19,7 @@ public class BurningBlood extends Prop{
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc",rate*100,value,rateByCount*100,valueByCount);
+        return Messages.get(this, "desc",
+                getFinallyRate()*100,getFinallyValue());
     }
 }

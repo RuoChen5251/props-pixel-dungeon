@@ -35,7 +35,7 @@ public class Prop {
         return ""+ getFinallyValue();
     }
     public String iconCountDisplay(){
-        return ""+count;
+        return count>1?""+count:"";
     }
 
     //some buffs may want to tint the base texture color of their icon
