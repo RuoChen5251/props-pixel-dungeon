@@ -6,8 +6,18 @@ import com.watabou.noosa.Image;
 
 public class Prop {
 
-    protected int count;
-    protected float effectValue;
+    public int count;//重复个数
+    public float rate;//触发概率
+    public float rateByCount;//每多一个触发概率叠加率
+    public float value;//生效值
+    public float valueByCount;//每多一个生效值增加量
+
+    public float getFinallyRate(){
+        return rate+(count-1)*rateByCount;
+    }
+    public float getFinallyValue(){
+        return value+(count-1)*valueByCount;
+    }
 
     //显示
     public int icon(){
@@ -22,7 +32,7 @@ public class Prop {
     }
 
     public String iconTextDisplay(){
-        return ""+effectValue;
+        return ""+ getFinallyValue();
     }
     public String iconCountDisplay(){
         return ""+count;
