@@ -177,7 +177,14 @@ public abstract class Char extends Actor {
 	
 	private LinkedHashSet<Buff> buffs = new LinkedHashSet<>();
 	private LinkedHashSet<Prop> props = new LinkedHashSet<>();
-	
+
+	public void propsAdd(Prop prop){
+		props.add(prop);
+	}
+
+	public void propsRemove(Prop prop){
+		props.remove(prop);
+	}
 	@Override
 	protected boolean act() {
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
@@ -1023,6 +1030,28 @@ public abstract class Char extends Actor {
 			}
 		}
 		return null;
+	}
+	public synchronized boolean add( Prop prop ) {
+		Prop cur = this.prop(prop.getClass());
+		if (cur!=null)
+			cur.count++;
+		else
+			this.props.add(prop);
+		return true;
+	}
+	public synchronized boolean remove( Prop prop ) {
+		Prop cur = this.prop(prop.getClass());
+		if (cur==null)
+			return false;
+		cur.count--;
+		if (cur.count==0)
+			this.props.remove(cur);
+		return true;
+	}
+
+	public synchronized boolean removeAll( Prop prop ) {
+		this.props.removeAll(this.props(prop.getClass()));
+		return true;
 	}
 
 	public synchronized boolean isCharmedBy( Char ch ) {

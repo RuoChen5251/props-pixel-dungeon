@@ -168,7 +168,7 @@ public enum HeroClass {
 			hero.belongings.armor.affixSeal(new BrokenSeal());
 			Catalog.setSeen(BrokenSeal.class); //as it's not added to the inventory
 		}
-		hero.props().add(new BurningBlood());
+		hero.add(new BurningBlood());
 
 		new PotionOfHealing().identify();
 		new ScrollOfRage().identify();
