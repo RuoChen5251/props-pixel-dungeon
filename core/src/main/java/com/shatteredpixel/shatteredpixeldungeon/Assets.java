@@ -98,7 +98,7 @@ public class Assets {
 	}
 	public static class Props {
 		public static final String PROPS_SMALL  = "interfaces/props.png";
-		public static final String PROPS_LARGE  = "interfaces/props.png";
+		public static final String PROPS_LARGE  = "interfaces/large_props.png";
 	}
 	//these points to resource bundles, not raw asset files
 	public static class Messages {

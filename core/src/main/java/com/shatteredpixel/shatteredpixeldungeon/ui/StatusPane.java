@@ -74,6 +74,7 @@ public class StatusPane extends Component {
 	private BitmapText level;
 
 	private BuffIndicator buffs;
+	private PropIndicator props;
 	private Compass compass;
 
 	private BusyIndicator busy;
@@ -88,7 +89,7 @@ public class StatusPane extends Component {
 
 		this.large = large;
 
-		if (large)  bg = new NinePatch( asset, 0, 64, 41, 39, 33, 0, 4, 0 );
+		if (large)  bg = new NinePatch( asset, 0, 57, 41, 39, 33, 0, 4, 0 );
 		else        bg = new NinePatch( asset, 0, 0, 128, 36, 85, 0, 45, 0 );
 		add( bg );
 
@@ -119,20 +120,23 @@ public class StatusPane extends Component {
 		compass = new Compass( Statistics.amuletObtained ? Dungeon.level.entrance() : Dungeon.level.exit() );
 		add( compass );
 
-		if (large)  rawShielding = new Image(asset, 0, 112, 128, 9);
+		if (large)  rawShielding = new Image(asset, 0, 105, 128, 9);
 		else        rawShielding = new Image(asset, 0, 40, 50, 4);
 		rawShielding.alpha(0.5f);
 		add(rawShielding);
 
-		if (large)  shieldedHP = new Image(asset, 0, 112, 128, 9);
+		if (large)  shieldedHP = new Image(asset, 0, 105, 128, 9);
 		else        shieldedHP = new Image(asset, 0, 40, 50, 4);
 		add(shieldedHP);
 
-		if (large)  hp = new Image(asset, 0, 103, 128, 9);
+		if (large)  hp = new Image(asset, 0, 96, 128, 9);
 		else        hp = new Image(asset, 0, 36, 50, 4);
 		add( hp );
 
-		if (!large) hungry = new Image(asset,0,45,44,3);
+		if (large)
+			hungry = new Image(asset,0,121,128,7);
+		else
+			hungry = new Image(asset,0,45,44,3);
 		add(hungry);
 
 		hpText = new BitmapText(PixelScene.pixelFont);
@@ -148,7 +152,7 @@ public class StatusPane extends Component {
 		};
 		add(heroInfoOnBar);
 
-		if (large)  exp = new Image(asset, 0, 121, 128, 7);
+		if (large)  exp = new Image(asset, 0, 114, 128, 7);
 		else        exp = new Image(asset, 0, 44, 16, 1);
 		add( exp );
 
@@ -165,6 +169,9 @@ public class StatusPane extends Component {
 
 		buffs = new BuffIndicator( Dungeon.hero, large );
 		add( buffs );
+
+		props = new PropIndicator( Dungeon.hero, large );
+		add( props );
 
 		busy = new BusyIndicator();
 		add( busy );
@@ -199,7 +206,7 @@ public class StatusPane extends Component {
 			exp.y = y + 30;
 
 			hp.x = shieldedHP.x = rawShielding.x = x + 30;
-			hp.y = shieldedHP.y = rawShielding.y = y + 19;
+			hp.y = shieldedHP.y = rawShielding.y = y + 10;
 
 			hpText.x = hp.x + (128 - hpText.width())/2f;
 			hpText.y = hp.y + 1;
@@ -209,9 +216,13 @@ public class StatusPane extends Component {
 			expText.y = exp.y;
 			PixelScene.align(expText);
 
-			heroInfoOnBar.setRect(heroInfo.right(), y + 19, 130, 20);
+			hungry.x = x + 30;
+			hungry.y = y + 21;
 
-			buffs.setRect(x + 31, y, 128, 16);
+			heroInfoOnBar.setRect(heroInfo.right(), y + 10, 130, 20);
+
+			buffs.setRect(x + bg.width + 1, y + bg.height - 30, 128, 16);
+			props.setRect(0, 0, 128, 16);
 
 			busy.x = x + bg.width + 1;
 			busy.y = y + bg.height - 9;
@@ -222,6 +233,9 @@ public class StatusPane extends Component {
 			hp.x = shieldedHP.x = rawShielding.x = x + 30;
 			hp.y = shieldedHP.y = rawShielding.y = y + 3;
 
+			hungry.x = x + 30;
+			hungry.y = y + 9;
+
 			hpText.scale.set(PixelScene.align(0.5f));
 			hpText.x = hp.x + 1;
 			hpText.y = hp.y + (hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
@@ -230,7 +244,9 @@ public class StatusPane extends Component {
 
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
-			buffs.setRect( x + 31, y + 15, 50, 8 );
+			buffs.setRect( x + 1, y + 40, 8, 50 );
+			props.setRect( width-16, y + 40, 8, 50 );
+
 
 			busy.x = x + 1;
 			busy.y = y + 33;
@@ -269,7 +285,7 @@ public class StatusPane extends Component {
 		}
 
 		hp.scale.x = Math.max( 0, (health-shield)/(float)max);
-		hungry.scale.x = curHungry/maxHungry;
+		hungry.scale.x = (maxHungry-curHungry)/maxHungry;
 		shieldedHP.scale.x = health/(float)max;
 
 		if (shield > health) {
