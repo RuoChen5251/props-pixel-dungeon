@@ -31,7 +31,7 @@ public class BurningBlood extends Prop{
     @Override
     public String desc() {
         return Messages.get(this, "desc",
-                getFinallyRate()*100
+                (int)getFinallyRate()*100
                 ,(int)getFinallyValue());
     }
 }
