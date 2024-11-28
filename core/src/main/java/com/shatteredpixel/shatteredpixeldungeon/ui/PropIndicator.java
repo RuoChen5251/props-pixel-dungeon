@@ -147,6 +147,11 @@ public class PropIndicator extends Component {
             }
         }
     }
+
+    public boolean allPropsVisible(){
+        return !propsHidden;
+    }
+
     public static void refreshHero() {
         if (heroInstance != null) {
             heroInstance.needsRefresh = true;
@@ -215,13 +220,13 @@ public class PropIndicator extends Component {
             } else {
                 textValue.scale.set(1f);
             }
-            textValue.x = this.x + 1;
-            textValue.y = this.y + 2;
+            textValue.x = this.x;
+            textValue.y = this.y;
         }
 
         @Override
         protected void onClick() {
-            GameScene.show(new WndInfoBuff(prop));
+            if (prop.icon() != NONE) GameScene.show(new WndInfoBuff(prop));
         }
 
         @Override

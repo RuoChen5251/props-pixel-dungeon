@@ -17,7 +17,7 @@ public class PropIcon extends Image {
     private final boolean large;
 
     public PropIcon(Prop prop,boolean large){
-        super();
+        super(large ? Assets.Interfaces.PROPS_LARGE : Assets.Interfaces.PROPS_SMALL);
         this.large = large;
         refresh(prop);
     }

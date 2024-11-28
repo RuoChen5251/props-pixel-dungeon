@@ -18,8 +18,20 @@ public class BurningBlood extends Prop{
     }
 
     @Override
+    public String iconTextDisplay() {
+        return getFinallyRate()*100+"%";
+    }
+
+    @Override
+    public String name() {
+        return Messages.get(this, "name",
+                count);
+    }
+
+    @Override
     public String desc() {
         return Messages.get(this, "desc",
-                getFinallyRate()*100,getFinallyValue());
+                getFinallyRate()*100
+                ,(int)getFinallyValue());
     }
 }

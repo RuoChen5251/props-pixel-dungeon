@@ -2231,8 +2231,12 @@ public class Hero extends Char {
 		}
 		if (!enemy.isActive()&&this.prop(BurningBlood.class)!=null){
 			BurningBlood bb = prop(BurningBlood.class);
-			if (Random.Float(0,1)<bb.rate)
-				this.HP += (int)bb.value * bb.count;
+			if (Random.Float(0,1)<bb.getFinallyRate()){
+				int healAmt = Math.min((int)bb.getFinallyValue(),this.HT-this.HP);
+				this.HP += healAmt;
+				this.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( healAmt ), FloatingText.HEALING );
+
+			}
 		}
 
 		curAction = null;

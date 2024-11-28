@@ -178,13 +178,6 @@ public abstract class Char extends Actor {
 	private LinkedHashSet<Buff> buffs = new LinkedHashSet<>();
 	private LinkedHashSet<Prop> props = new LinkedHashSet<>();
 
-	public void propsAdd(Prop prop){
-		props.add(prop);
-	}
-
-	public void propsRemove(Prop prop){
-		props.remove(prop);
-	}
 	@Override
 	protected boolean act() {
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
@@ -325,6 +318,7 @@ public abstract class Char extends Actor {
 	protected static final String TAG_HT    = "HT";
 	protected static final String TAG_SHLD  = "SHLD";
 	protected static final String BUFFS	    = "buffs";
+	protected static final String PROPS	    = "props";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -335,6 +329,7 @@ public abstract class Char extends Actor {
 		bundle.put( TAG_HP, HP );
 		bundle.put( TAG_HT, HT );
 		bundle.put( BUFFS, buffs );
+		bundle.put( PROPS, props );
 	}
 	
 	@Override
@@ -349,6 +344,11 @@ public abstract class Char extends Actor {
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
 			if (b != null) {
 				((Buff)b).attachTo( this );
+			}
+		}
+		for (Bundlable b : bundle.getCollection( PROPS )) {
+			if (b != null) {
+				this.props.add((Prop)b);
 			}
 		}
 	}
