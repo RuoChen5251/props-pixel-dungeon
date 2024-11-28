@@ -61,6 +61,22 @@ public class AboutScene extends PixelScene {
 
 		Component content = list.content();
 		content.clear();
+		//*** Props Pixel Dungeon Credits ***
+
+		CreditsBlock props = new CreditsBlock(true, Window.SHPX_COLOR,
+				"Props Pixel Dungeon",
+				Icons.BUSY.get(),
+				"Developed by: _若尘_\nBased on Shattered Pixel Dungeon's open source",
+				"Github",
+				"https://github.com/RuoChen5251/props-pixel-dungeon");
+		if (landscape()){
+			props.setRect((w - fullWidth)/2f - 6, 10, 120, 0);
+		} else {
+			props.setRect((w - fullWidth)/2f, 6, 120, 0);
+		}
+		content.add(props);
+		addLine(props.bottom() + 4, content);
+
 
 		//*** Shattered Pixel Dungeon Credits ***
 
@@ -71,9 +87,9 @@ public class AboutScene extends PixelScene {
 				"ShatteredPixel.com",
 				"https://ShatteredPixel.com");
 		if (landscape()){
-			shpx.setRect((w - fullWidth)/2f - 6, 10, 120, 0);
+			shpx.setRect((w - fullWidth)/2f - 6, props.bottom() + 12, 120, 0);
 		} else {
-			shpx.setRect((w - fullWidth)/2f, 6, 120, 0);
+			shpx.setRect((w - fullWidth)/2f, props.bottom() + 12, 120, 0);
 		}
 		content.add(shpx);
 
