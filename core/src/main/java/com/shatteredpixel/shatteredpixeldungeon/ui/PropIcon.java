@@ -23,7 +23,7 @@ public class PropIcon extends Image {
     }
 
     public PropIcon(int icon,boolean large){
-        super( large ? Assets.Interfaces.BUFFS_LARGE : Assets.Interfaces.BUFFS_SMALL );
+        super( large ? Assets.Interfaces.PROPS_LARGE : Assets.Interfaces.PROPS_SMALL );
         this.large = large;
         refresh(icon);
     }

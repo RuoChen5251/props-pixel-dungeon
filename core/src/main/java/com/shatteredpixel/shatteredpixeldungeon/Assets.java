@@ -89,16 +89,15 @@ public class Assets {
 		public static final String BUFFS_SMALL      = "interfaces/buffs.png";
 		public static final String BUFFS_LARGE      = "interfaces/large_buffs.png";
 
+		public static final String PROPS_SMALL  = "interfaces/props.png";
+		public static final String PROPS_LARGE  = "interfaces/large_props.png";
+
 		public static final String TALENT_ICONS     = "interfaces/talent_icons.png";
 		public static final String TALENT_BUTTON    = "interfaces/talent_button.png";
 
 		public static final String HERO_ICONS       = "interfaces/hero_icons.png";
 
 		public static final String RADIAL_MENU      = "interfaces/radial_menu.png";
-	}
-	public static class Props {
-		public static final String PROPS_SMALL  = "interfaces/props.png";
-		public static final String PROPS_LARGE  = "interfaces/large_props.png";
 	}
 	//these points to resource bundles, not raw asset files
 	public static class Messages {
