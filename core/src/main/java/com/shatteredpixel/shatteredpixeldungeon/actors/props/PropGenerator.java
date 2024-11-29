@@ -64,9 +64,7 @@ public class PropGenerator {
         return Reflection.newInstance(Random.element(unCommon));
     }
 
-    private static Prop randomCommon(ArrayList<Class<? extends Prop>> filter) {
-        ArrayList<Class<? extends Prop>> common = new ArrayList<>(Arrays.asList(COMMON));
-        common.removeAll(filter);
+    private static Prop randomCommon(ArrayList<Class<? extends Prop>> common) {
         if (common.isEmpty())
             return random();
         return Reflection.newInstance(Random.element(common));

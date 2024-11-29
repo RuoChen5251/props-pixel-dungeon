@@ -30,7 +30,7 @@ public class PropIndicator extends Component {
 
     private static PropIndicator heroInstance;
 
-    private LinkedHashMap<Prop, PropIndicator.PropButton> propButtons = new LinkedHashMap<>();
+    private LinkedHashMap<Prop, PropButton> propButtons = new LinkedHashMap<>();
     private boolean needsRefresh;
     private Char ch;
 
@@ -105,7 +105,7 @@ public class PropIndicator extends Component {
         //add new icons
         for (Prop buff : propArrayList) {
             if (!propButtons.containsKey(buff)) {
-                PropIndicator.PropButton icon = new PropIndicator.PropButton(buff, large);
+                PropButton icon = new PropButton(buff, large);
                 add(icon);
                 propButtons.put( buff, icon );
             }
@@ -114,7 +114,7 @@ public class PropIndicator extends Component {
         //layout
         int pos = 0;
         float lastIconLeft = 0;
-        for (PropIndicator.PropButton icon : propButtons.values()){
+        for (PropButton icon : propButtons.values()){
             icon.updateIcon();
             //button areas are slightly oversized, especially on small buttons
             icon.setRect(x + pos * (size + 1), y, size + 1, size + (large ? 0 : 5));
@@ -134,9 +134,9 @@ public class PropIndicator extends Component {
             if (!large && leftAdjust >= size*0.62f) leftAdjust = size*0.65f;
             float cumulativeAdjust = leftAdjust * (propButtons.size()-1);
 
-            ArrayList<PropIndicator.PropButton> buttons = new ArrayList<>(propButtons.values());
+            ArrayList<PropButton> buttons = new ArrayList<>(propButtons.values());
             Collections.reverse(buttons);
-            for (PropIndicator.PropButton icon : buttons) {
+            for (PropButton icon : buttons) {
                 icon.setPos(icon.left() - cumulativeAdjust, icon.top());
                 icon.visible = icon.left() <= right();
                 if (!icon.visible) propsHidden = true;
@@ -158,74 +158,6 @@ public class PropIndicator extends Component {
         }
     }
 
-    private static class PropButton extends IconButton {
 
-        private Prop prop;
-
-        private boolean large;
-
-        public BitmapText textValue; //only for large
-
-        public PropButton( Prop prop, boolean large ){
-            super( new PropIcon(prop, large));
-            this.prop = prop;
-            this.large = large;
-
-            bringToFront(textValue);
-        }
-
-        @Override
-        protected void createChildren() {
-            super.createChildren();
-
-            textValue = new BitmapText(PixelScene.pixelFont);
-            add( textValue );
-        }
-
-        public void updateIcon(){
-            ((PropIcon)icon).refresh(prop);
-            //round up to the nearest pixel if <50% faded, otherwise round down
-           if (!prop.iconTextDisplay().isEmpty()) {
-               textValue.visible = true;
-               textValue.alpha(0.7f);
-               textValue.text(prop.iconTextDisplay());
-               textValue.measure();
-            }
-        }
-
-        @Override
-        protected void layout() {
-            super.layout();
-
-            if (textValue.width > width()){
-                textValue.scale.set(PixelScene.align(0.5f));
-            } else {
-                textValue.scale.set(1f);
-            }
-            textValue.x = this.x;
-            textValue.y = this.y+width()-textValue.height;
-        }
-
-        @Override
-        protected void onClick() {
-            if (prop.icon() != NONE) GameScene.show(new WndInfoBuff(prop));
-        }
-
-        @Override
-        protected void onPointerDown() {
-            //don't affect buff color
-            Sample.INSTANCE.play( Assets.Sounds.CLICK );
-        }
-
-        @Override
-        protected void onPointerUp() {
-            //don't affect buff color
-        }
-
-        @Override
-        protected String hoverText() {
-            return Messages.titleCase(prop.name());
-        }
-    }
 
 }
