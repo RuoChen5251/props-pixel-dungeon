@@ -85,6 +85,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndProp;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -92,6 +93,7 @@ import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -103,6 +105,35 @@ public abstract class Mob extends Char {
 		
 		alignment = Alignment.ENEMY;
 	}
+	public static final Class<? extends Mob>[] RARE_MOB = new Class[]{
+			Albino.class,
+			CausticSlime.class,
+			Bandit.class,
+			SpectralNecromancer.class,
+			ArmoredBrute.class,
+			DM201.class,
+			Senior.class,
+			Acidic.class,
+			ArmoredStatue.class,
+	};
+
+	public static final Class<? extends Mob>[] BOSS_MOB = new Class[]{
+			Goo.class,
+			DM300.class,
+			DwarfKing.class,
+			FetidRat.class,
+			CrystalGuardian.class,
+			CrystalSpire.class,
+			DemonSpawner.class
+	};
+	public static final Class<? extends ChampionEnemy>[] CHAMPION_ENEMY = new Class[]{
+			ChampionEnemy.Blazing.class,
+			ChampionEnemy.Projecting.class,
+			ChampionEnemy.AntiMagic.class,
+			ChampionEnemy.Giant.class,
+			ChampionEnemy.Blessed.class,
+			ChampionEnemy.Growing.class,
+	};
 
 	public AiState SLEEPING     = new Sleeping();
 	public AiState HUNTING		= new Hunting();
@@ -824,7 +855,27 @@ public abstract class Mob extends Char {
 			}
 		}
 	}
-	
+	private boolean isBoss(){
+		for (Class<? extends Mob> cl:BOSS_MOB){
+			if (cl==this.getClass())
+				return true;
+		}
+		return false;
+	}
+	private boolean isRare(){
+		for (Class<? extends Mob> cl:RARE_MOB){
+			if (cl==this.getClass())
+				return true;
+		}
+		return false;
+	}
+	private boolean isChampionEnemy(){
+		for (Class<? extends ChampionEnemy> cl:CHAMPION_ENEMY){
+			if (this.buff(cl)!=null)
+				return true;
+		}
+		return false;
+	}
 	@Override
 	public void die( Object cause ) {
 
@@ -859,6 +910,14 @@ public abstract class Mob extends Char {
 		boolean soulMarked = buff(SoulMark.class) != null;
 
 		super.die( cause );
+
+		//Boss\精英\稀有怪死亡时触发道具选择
+		if (isBoss())
+			GameScene.show(new WndProp(WndProp.KILL_BOSS));
+		if (isRare()||isChampionEnemy())
+			GameScene.show(new WndProp(WndProp.KILL_ENEMY));
+
+
 		if (!(this instanceof NPC))
 			for (Prop prop:Dungeon.hero.props())//怪物死亡时触发
 				prop.onMobsDie(this);
