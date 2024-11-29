@@ -75,6 +75,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.props.BurningBlood;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.Prop;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
@@ -163,6 +164,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndProp;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
@@ -787,12 +789,18 @@ public class Hero extends Char {
 		busy();
 		spendConstant( time );
 		next();
+
+		for (Prop prop:props())
+			prop.onDelay(time);
 	}
 
 	public void spendAndNext( float time ) {
 		busy();
 		spend( time );
 		next();
+
+		for (Prop prop:props())
+			prop.onDelay(time);
 	}
 	
 	@Override
@@ -2229,14 +2237,13 @@ public class Hero extends Char {
 		if (hit && heroClass == HeroClass.DUELIST && wasEnemy){
 			Buff.affect( this, Sai.ComboStrikeTracker.class).addHit();
 		}
-		if (!enemy.isActive()&&this.prop(BurningBlood.class)!=null){
-			BurningBlood bb = prop(BurningBlood.class);
-			if (Random.Float(0,1)<bb.getFinallyRate()){
-				int healAmt = Math.min((int)bb.getFinallyValue(),this.HT-this.HP);
-				if (healAmt>0){
-					this.HP += healAmt;
-					this.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( healAmt ), FloatingText.HEALING );
-				}
+		if (!enemy.isActive()){
+			for(Prop prop:this.props()){
+				prop.onKill();
+			}
+		}else{
+			for(Prop prop:this.props()){
+				prop.onAttack();
 			}
 		}
 

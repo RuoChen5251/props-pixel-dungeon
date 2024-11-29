@@ -53,6 +53,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.Prop;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
@@ -857,6 +859,9 @@ public abstract class Mob extends Char {
 		boolean soulMarked = buff(SoulMark.class) != null;
 
 		super.die( cause );
+		if (!(this instanceof NPC))
+			for (Prop prop:Dungeon.hero.props())//怪物死亡时触发
+				prop.onMobsDie(this);
 
 		if (!(this instanceof Wraith)
 				&& soulMarked

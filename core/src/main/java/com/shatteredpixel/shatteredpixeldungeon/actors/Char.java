@@ -133,6 +133,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
@@ -1037,6 +1038,8 @@ public abstract class Char extends Actor {
 			cur.count++;
 		else
 			this.props.add(prop);
+		prop.onAdd();
+		PropIndicator.refreshHero();
 		return true;
 	}
 	public synchronized boolean remove( Prop prop ) {
@@ -1044,6 +1047,8 @@ public abstract class Char extends Actor {
 		if (cur==null)
 			return false;
 		this.props.remove(cur);
+		cur.onRemove();
+		PropIndicator.refreshHero();
 		return true;
 	}
 

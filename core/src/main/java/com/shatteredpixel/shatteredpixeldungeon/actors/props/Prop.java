@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Affection;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
@@ -80,6 +81,19 @@ public class Prop extends Actor {
     }
 
     public void onRemove() {
+
+    }
+    public void onKill() {
+
+    }
+    public void onAttack() {
+
+    }
+
+    public void onMobsDie(Mob mob) {
+
+    }
+    public void onDelay(float time) {
 
     }
 
