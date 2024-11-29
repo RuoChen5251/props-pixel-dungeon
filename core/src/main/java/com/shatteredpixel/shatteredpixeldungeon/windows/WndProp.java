@@ -38,11 +38,12 @@ public class WndProp extends Window {
         message.maxWidth(WIDTH);
         message.setPos(0, titlebar.bottom() + GAP);
         add( message );
+
         for (int i = 0; i < NUM_PROPS; i++) {
             if (i==NUM_PROPS-1)
                 props[i] = new PropNone();
             else
-                props[i] = PropGenerator.random();
+                props[i] = text.equals(KILL_BOSS)?PropGenerator.randomBoss():PropGenerator.random();
         }
 
 

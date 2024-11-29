@@ -145,6 +145,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
@@ -2209,6 +2210,10 @@ public class Hero extends Char {
 			} else {
 				Sample.INSTANCE.play( Assets.Sounds.STEP, 1, Random.Float( 0.96f, 1.05f ) );
 			}
+		}
+		if (Dungeon.branch == 0 && Dungeon.level instanceof RegularLevel && !Dungeon.bossLevel()){
+			if (Dungeon.level.isLevelExplored(Dungeon.depth))
+				GameScene.show(new WndProp(WndProp.CLEAR_ROOM));
 		}
 	}
 	

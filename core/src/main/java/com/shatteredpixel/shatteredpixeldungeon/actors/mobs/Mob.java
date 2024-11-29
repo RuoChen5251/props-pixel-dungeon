@@ -115,16 +115,27 @@ public abstract class Mob extends Char {
 			Senior.class,
 			Acidic.class,
 			ArmoredStatue.class,
+			FetidRat.class,
+			DemonSpawner.class,
+			Elemental.NewbornFireElemental.class,
+			FungalSentry.class,
+			GnollSapper.class,
+			GnollTrickster.class,
+			GreatCrab.class,
+			RotHeart.class,
+			RotLasher.class
 	};
 
 	public static final Class<? extends Mob>[] BOSS_MOB = new Class[]{
 			Goo.class,
 			DM300.class,
 			DwarfKing.class,
-			FetidRat.class,
-			CrystalGuardian.class,
 			CrystalSpire.class,
-			DemonSpawner.class
+			FungalCore.class,
+			GnollGeomancer.class,
+			Tengu.class,
+			YogDzewa.class,
+			YogFist.class
 	};
 	public static final Class<? extends ChampionEnemy>[] CHAMPION_ENEMY = new Class[]{
 			ChampionEnemy.Blazing.class,
