@@ -11,10 +11,11 @@ import java.util.stream.Collectors;
 public class PropGenerator {
 
     public static Class<? extends Prop>[] COMMON = new Class[]{
-            BurningBlood.class
+            BurningBlood.class, //燃烧之血
     };
     public static Class<? extends Prop>[] UNCOMMON = new Class[]{
-
+            MembershipCard.class,//会员卡
+            WholesalerCertification.class,//批发商证明
     };
     public static Class<? extends Prop>[] RARE = new Class[]{
 

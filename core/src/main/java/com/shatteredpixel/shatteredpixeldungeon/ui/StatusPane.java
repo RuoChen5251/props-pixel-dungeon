@@ -269,7 +269,9 @@ public class StatusPane extends Component {
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.HT;
 		float maxHungry = Hunger.STARVING;
-		int curHungry = Dungeon.hero.buff(Hunger.class).hunger();
+		int curHungry=0;
+		if (Dungeon.hero.buff(Hunger.class)!=null)
+		 	curHungry= Dungeon.hero.buff(Hunger.class).hunger();
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);

@@ -25,6 +25,7 @@ public class WndProp extends Window {
     public static final String KILL_BOSS = "kill_boss";
     public static final String KILL_ENEMY = "kill_enemy";
     public static final String CLEAR_ROOM = "clear_room";
+    public static final String LEVEL_UP = "level_up";
     public static final String OTHER = "other";
     public WndProp(String text){
 
@@ -97,9 +98,5 @@ public class WndProp extends Window {
             resize(width, (int)btnCancel.bottom());
         }
 
-        @Override
-        public void onBackPressed() {
-
-        }
     }
 }

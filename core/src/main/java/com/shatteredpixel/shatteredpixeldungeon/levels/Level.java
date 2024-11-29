@@ -204,6 +204,7 @@ public abstract class Level implements Bundlable {
 	private static final String MOBS		= "mobs";
 	private static final String BLOBS		= "blobs";
 	private static final String FEELING		= "feeling";
+	private static final String ISGETPROP		= "isGetProp";
 
 	public void create() {
 
@@ -442,6 +443,7 @@ public abstract class Level implements Bundlable {
 		if (bundle.contains( "respawner" )){
 			respawner = (MobSpawner) bundle.get("respawner");
 		}
+		isGetProp = bundle.getBoolean(ISGETPROP);
 
 		buildFlagMaps();
 		cleanWalls();
@@ -468,6 +470,7 @@ public abstract class Level implements Bundlable {
 		bundle.put( FEELING, feeling );
 		bundle.put( "mobs_to_spawn", mobsToSpawn.toArray(new Class[0]));
 		bundle.put( "respawner", respawner );
+		bundle.put( ISGETPROP, isGetProp );
 	}
 	
 	public int tunnelTile() {
@@ -1444,6 +1447,7 @@ public abstract class Level implements Bundlable {
 
 	}
 
+	public boolean isGetProp = false;
 	public boolean isLevelExplored( int depth ){
 		return false;
 	}

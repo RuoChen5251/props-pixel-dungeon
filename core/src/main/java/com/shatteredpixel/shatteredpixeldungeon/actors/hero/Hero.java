@@ -1938,7 +1938,12 @@ public class Hero extends Char {
 				updateHT( true );
 				attackSkill++;
 				defenseSkill++;
-
+				Game.runOnRenderThread(new Callback() {
+					@Override
+					public void call() {
+						GameScene.show(new WndProp(WndProp.LEVEL_UP));
+					}
+				});
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
 				this.exp = 0;
@@ -2211,9 +2216,19 @@ public class Hero extends Char {
 				Sample.INSTANCE.play( Assets.Sounds.STEP, 1, Random.Float( 0.96f, 1.05f ) );
 			}
 		}
-		if (Dungeon.branch == 0 && Dungeon.level instanceof RegularLevel && !Dungeon.bossLevel()){
-			if (Dungeon.level.isLevelExplored(Dungeon.depth))
-				GameScene.show(new WndProp(WndProp.CLEAR_ROOM));
+		if (Dungeon.branch == 0
+				&& Dungeon.level instanceof RegularLevel
+				&& !Dungeon.bossLevel()
+				&& !Dungeon.level.isGetProp
+				&& Dungeon.level.isLevelExplored(Dungeon.depth)
+		){
+			Game.runOnRenderThread(new Callback() {
+				@Override
+				public void call() {
+					GameScene.show(new WndProp(WndProp.CLEAR_ROOM));
+				}
+			});
+			Dungeon.level.isGetProp = true;
 		}
 	}
 	

@@ -86,8 +86,10 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndProp;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -924,9 +926,19 @@ public abstract class Mob extends Char {
 
 		//Boss\精英\稀有怪死亡时触发道具选择
 		if (isBoss())
-			GameScene.show(new WndProp(WndProp.KILL_BOSS));
+			Game.runOnRenderThread(new Callback() {
+				@Override
+				public void call() {
+					GameScene.show(new WndProp(WndProp.KILL_BOSS));
+				}
+			});
 		if (isRare()||isChampionEnemy())
-			GameScene.show(new WndProp(WndProp.KILL_ENEMY));
+			Game.runOnRenderThread(new Callback() {
+				@Override
+				public void call() {
+					GameScene.show(new WndProp(WndProp.KILL_ENEMY));
+				}
+			});
 
 
 		if (!(this instanceof NPC))

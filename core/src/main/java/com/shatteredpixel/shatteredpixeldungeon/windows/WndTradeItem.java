@@ -27,6 +27,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.MembershipCard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.Prop;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.WholesalerCertification;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -126,7 +129,15 @@ public class WndTradeItem extends WndInfoItem {
 
 		float pos = height;
 
-		final int price = Shopkeeper.sellPrice( item );
+		int price = Shopkeeper.sellPrice( item );
+
+		Prop card = Dungeon.hero.prop(MembershipCard.class);
+		if (card!=null)
+			price= (int)(price*card.getFinallyRate());
+		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
+		if (cert!=null){
+			price= (int)(price*cert.getFinallyRate());
+		}
 
 		RedButton btnBuy = new RedButton( Messages.get(this, "buy", price) ) {
 			@Override
@@ -274,6 +285,17 @@ public class WndTradeItem extends WndInfoItem {
 		if (item == null) return;
 		
 		int price = Shopkeeper.sellPrice( item );
+
+		Prop card = Dungeon.hero.prop(MembershipCard.class);
+		if (card!=null)
+			price= (int)(price*card.getFinallyRate());
+
+		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
+		if (cert!=null){
+			price= (int)(price*cert.getFinallyRate());
+			item.quantity(item.quantity()*3);
+		}
+
 		Dungeon.gold -= price;
 		Catalog.countUses(Gold.class, price);
 		
