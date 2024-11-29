@@ -26,8 +26,26 @@ public class Prop extends Actor {
     }
 
     public float rate;
+    public float rateByCount;
     public float value;
+    public float valueByCount;
+    public int count=1;
+    public int maxCount = 1;
+    public boolean canSuperposition(){
+        return maxCount>count;
+    }
 
+    public float getFinallyRate(){
+        float res = rate+(count-1)*rateByCount;
+        return res>1?1:res;
+    }
+    public float getFinallyValue(){
+        return value+(count-1)*valueByCount;
+    }
+    public Prop setCount(int count){
+        this.count = count;
+        return this;
+    }
 
     //显示
     public int icon(){
@@ -42,7 +60,7 @@ public class Prop extends Actor {
     }
 
     public String iconTextDisplay(){
-        return "";
+        return count>1?count+"":"";
     }
 
     //some buffs may want to tint the base texture color of their icon
@@ -68,11 +86,13 @@ public class Prop extends Actor {
 
     private static final String PROP_RATE    = "prop_rate";
     private static final String PROP_VALUE    = "prop_value";
+    private static final String PROP_COUNT   = "prop_count";
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(PROP_RATE,rate);
         bundle.put(PROP_VALUE,value);
+        bundle.put(PROP_COUNT,count);
     }
 
     @Override
@@ -80,5 +100,6 @@ public class Prop extends Actor {
         super.restoreFromBundle(bundle);
         rate = bundle.getFloat(PROP_RATE);
         value = bundle.getFloat(PROP_VALUE);
+        count = bundle.getInt(PROP_COUNT);
     }
 }

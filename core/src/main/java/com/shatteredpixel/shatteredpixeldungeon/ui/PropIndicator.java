@@ -164,7 +164,6 @@ public class PropIndicator extends Component {
 
         private boolean large;
 
-        public BitmapText textCount; //only for large
         public BitmapText textValue; //only for large
 
         public PropButton( Prop prop, boolean large ){
@@ -172,7 +171,6 @@ public class PropIndicator extends Component {
             this.prop = prop;
             this.large = large;
 
-            bringToFront(textCount);
             bringToFront(textValue);
         }
 
@@ -180,9 +178,7 @@ public class PropIndicator extends Component {
         protected void createChildren() {
             super.createChildren();
 
-            textCount = new BitmapText(PixelScene.pixelFont);
             textValue = new BitmapText(PixelScene.pixelFont);
-            add( textCount );
             add( textValue );
         }
 
@@ -190,11 +186,6 @@ public class PropIndicator extends Component {
             ((PropIcon)icon).refresh(prop);
             //round up to the nearest pixel if <50% faded, otherwise round down
            if (!prop.iconTextDisplay().isEmpty()) {
-               textCount.visible = true;
-               textCount.alpha(0.7f);
-               textCount.text(prop.iconCountDisplay());
-               textCount.measure();
-
                textValue.visible = true;
                textValue.alpha(0.7f);
                textValue.text(prop.iconTextDisplay());
@@ -206,22 +197,13 @@ public class PropIndicator extends Component {
         protected void layout() {
             super.layout();
 
-            if (textCount.width > width()){
-                textCount.scale.set(PixelScene.align(0.5f));
-            } else {
-                textCount.scale.set(1f);
-            }
-            textCount.x = this.x + width() - textCount.width() - 1;
-            textCount.y = this.y + width() - textCount.baseLine() - 2;
-
-
             if (textValue.width > width()){
                 textValue.scale.set(PixelScene.align(0.5f));
             } else {
                 textValue.scale.set(1f);
             }
             textValue.x = this.x;
-            textValue.y = this.y;
+            textValue.y = this.y+width()-textValue.height;
         }
 
         @Override

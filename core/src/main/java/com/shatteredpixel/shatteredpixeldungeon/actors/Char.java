@@ -1043,14 +1043,7 @@ public abstract class Char extends Actor {
 		Prop cur = this.prop(prop.getClass());
 		if (cur==null)
 			return false;
-		cur.count--;
-		if (cur.count==0)
-			this.props.remove(cur);
-		return true;
-	}
-
-	public synchronized boolean removeAll( Prop prop ) {
-		this.props.removeAll(this.props(prop.getClass()));
+		this.props.remove(cur);
 		return true;
 	}
 
