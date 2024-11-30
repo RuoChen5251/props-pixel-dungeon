@@ -167,6 +167,10 @@ public class BuffIndicator extends Component {
 
 	@Override
 	protected void layout() {
+		if (!large){
+			layoutSmall();
+			return;
+		}
 
 		ArrayList<Buff> newBuffs = new ArrayList<>();
 		for (Buff buff : ch.buffs()) {
@@ -247,6 +251,76 @@ public class BuffIndicator extends Component {
 				icon.givePointerPriority();
 				cumulativeAdjust -= leftAdjust;
 			}
+		}
+	}
+
+	private void layoutSmall() {
+
+		ArrayList<Buff> buffArrayList = new ArrayList<>();
+		for (Buff buff : ch.buffs()) {
+			if (buff.icon() != NONE) {
+				buffArrayList.add(buff);
+			}
+		}
+
+		int size = SIZE_SMALL;
+
+		//remove any icons no longer present
+		for (Buff buff : buffButtons.keySet().toArray(new Buff[0])){
+			if (!buffArrayList.contains(buff)){
+				Image icon = buffButtons.get( buff ).icon;
+				icon.originToCenter();
+				icon.alpha(0.6f);
+				add( icon );
+				add( new AlphaTweener( icon, 0, 0.6f ) {
+					@Override
+					protected void updateValues( float progress ) {
+						super.updateValues( progress );
+						image.scale.set( 1 + 5 * progress );
+					}
+
+					@Override
+					protected void onComplete() {
+						image.killAndErase();
+					}
+				} );
+
+				buffButtons.get( buff ).destroy();
+				remove(buffButtons.get( buff ));
+				buffButtons.remove( buff );
+			}
+		}
+
+		//add new icons
+		for (Buff buff : buffArrayList) {
+			if (!buffButtons.containsKey(buff)) {
+				BuffButton icon = new BuffButton(buff, large);
+				add(icon);
+				buffButtons.put( buff, icon );
+			}
+		}
+
+		//layout
+		int pos = 0;
+		for (BuffButton icon : buffButtons.values()){
+			icon.updateIcon();
+			//button areas are slightly oversized, especially on small buttons
+			icon.setRect(x+1-pos/10 * (size + 1) , y+ pos%10 * (size + 1), size + 1 , size + 1);
+			PixelScene.align(icon);
+			pos++;
+
+		}
+		buffsHidden = false;
+
+		ArrayList<BuffButton> buttons = new ArrayList<>(buffButtons.values());
+		Collections.reverse(buttons);
+		for (BuffButton icon : buttons) {
+			icon.setPos(icon.left(), icon.top());
+			icon.visible = inside(icon.left(),icon.top());
+			if (!icon.visible) buffsHidden = true;
+			PixelScene.align(icon);
+			bringToFront(icon);
+			icon.givePointerPriority();
 		}
 	}
 

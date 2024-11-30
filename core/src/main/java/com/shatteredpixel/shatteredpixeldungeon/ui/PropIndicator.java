@@ -66,7 +66,13 @@ public class PropIndicator extends Component {
     private boolean propsHidden = false;
     @Override
     protected void layout() {
+        if (large)
+            layoutLarge();
+        else
+            layoutSmall();
+    }
 
+    private void layoutLarge() {
         ArrayList<Prop> propArrayList = new ArrayList<>();
         for (Prop prop : ch.props()) {
             if (prop.icon() != NONE) {
@@ -74,7 +80,7 @@ public class PropIndicator extends Component {
             }
         }
 
-        int size = large ? SIZE_LARGE : SIZE_SMALL;
+        int size = SIZE_LARGE;
 
         //remove any icons no longer present
         for (Prop prop : propButtons.keySet().toArray(new Prop[0])){
@@ -113,39 +119,96 @@ public class PropIndicator extends Component {
 
         //layout
         int pos = 0;
-        float lastIconLeft = 0;
         for (PropButton icon : propButtons.values()){
             icon.updateIcon();
             //button areas are slightly oversized, especially on small buttons
-            icon.setRect(x + pos * (size + 1), y, size + 1, size + (large ? 0 : 5));
+            icon.setRect(x + pos%10 * (size + 1), y+ pos/10 * (size + 1), size + 1, size + (large ? 0 : 5));
             PixelScene.align(icon);
             pos++;
 
             icon.visible = icon.left() <= right();
-            lastIconLeft = icon.left();
         }
         propsHidden = false;
-        //squish buff icons together if there isn't enough room
-        float excessWidth = lastIconLeft - right();
-        if (excessWidth > 0) {
-            float leftAdjust = excessWidth/(propButtons.size()-1);
-            //can't squish by more than 50% on large and 62% on small
-            if (large && leftAdjust >= size*0.48f) leftAdjust = size*0.5f;
-            if (!large && leftAdjust >= size*0.62f) leftAdjust = size*0.65f;
-            float cumulativeAdjust = leftAdjust * (propButtons.size()-1);
+        ArrayList<PropButton> buttons = new ArrayList<>(propButtons.values());
+        Collections.reverse(buttons);
+        for (PropButton icon : buttons) {
+            icon.setPos(icon.left(), icon.top());
+            icon.visible = icon.left() <= right() && icon.bottom()<=bottom();
+            if (!icon.visible) propsHidden = true;
+            PixelScene.align(icon);
+            bringToFront(icon);
+            icon.givePointerPriority();
+        }
+    }
 
-            ArrayList<PropButton> buttons = new ArrayList<>(propButtons.values());
-            Collections.reverse(buttons);
-            for (PropButton icon : buttons) {
-                icon.setPos(icon.left() - cumulativeAdjust, icon.top());
-                icon.visible = icon.left() <= right();
-                if (!icon.visible) propsHidden = true;
-                PixelScene.align(icon);
-                bringToFront(icon);
-                icon.givePointerPriority();
-                cumulativeAdjust -= leftAdjust;
+    private void layoutSmall() {
+        ArrayList<Prop> propArrayList = new ArrayList<>();
+        for (Prop prop : ch.props()) {
+            if (prop.icon() != NONE) {
+                propArrayList.add(prop);
             }
         }
+
+        int size = SIZE_SMALL;
+
+        //remove any icons no longer present
+        for (Prop prop : propButtons.keySet().toArray(new Prop[0])){
+            if (!propArrayList.contains(prop)){
+                Image icon = propButtons.get( prop ).icon;
+                icon.originToCenter();
+                icon.alpha(0.6f);
+                add( icon );
+                add( new AlphaTweener( icon, 0, 0.6f ) {
+                    @Override
+                    protected void updateValues( float progress ) {
+                        super.updateValues( progress );
+                        image.scale.set( 1 + 5 * progress );
+                    }
+
+                    @Override
+                    protected void onComplete() {
+                        image.killAndErase();
+                    }
+                } );
+
+                propButtons.get( prop ).destroy();
+                remove(propButtons.get( prop ));
+                propButtons.remove( prop );
+            }
+        }
+
+        //add new icons
+        for (Prop buff : propArrayList) {
+            if (!propButtons.containsKey(buff)) {
+                PropButton icon = new PropButton(buff, large);
+                add(icon);
+                propButtons.put( buff, icon );
+            }
+        }
+
+        //layout
+        int pos = 0;
+        for (PropButton icon : propButtons.values()){
+            icon.updateIcon();
+            //button areas are slightly oversized, especially on small buttons
+            icon.setRect(x+width-size-1-pos/10 * (size + 1) , y+ pos%10 * (size + 1), size + 1 , size + 1);
+            PixelScene.align(icon);
+            pos++;
+
+        }
+        propsHidden = false;
+
+        ArrayList<PropButton> buttons = new ArrayList<>(propButtons.values());
+        Collections.reverse(buttons);
+        for (PropButton icon : buttons) {
+            icon.setPos(icon.left(), icon.top());
+            icon.visible = inside(icon.left(),icon.top());
+            if (!icon.visible) propsHidden = true;
+            PixelScene.align(icon);
+            bringToFront(icon);
+            icon.givePointerPriority();
+        }
+
     }
 
     public boolean allPropsVisible(){
