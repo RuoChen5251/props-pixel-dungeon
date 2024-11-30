@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.DarkBlood;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -122,6 +123,9 @@ public class ChaliceOfBlood extends Artifact {
 			Sample.INSTANCE.play(Assets.Sounds.CURSED);
 			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
 		}
+
+		if (hero.prop(DarkBlood.class)!=null)
+			damage=hero.prop(DarkBlood.class).reduceDamage(damage);
 
 		hero.damage(damage, this);
 

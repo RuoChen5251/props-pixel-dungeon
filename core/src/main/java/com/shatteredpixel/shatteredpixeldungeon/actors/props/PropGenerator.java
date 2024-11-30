@@ -20,6 +20,7 @@ public class PropGenerator {
     };
     public static Class<? extends Prop>[] RARE = new Class[]{
             CorpseVine.class,//食尸藤
+            DarkBlood.class,//黑暗之血
     };
     public static Class<? extends Prop>[] BOSS = new Class[]{
 
