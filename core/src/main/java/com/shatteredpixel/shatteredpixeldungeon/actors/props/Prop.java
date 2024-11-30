@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Affection;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
@@ -93,6 +94,10 @@ public class Prop extends Actor {
 
     }
 
+    public void onAttack(Char ch) {
+
+    }
+
     public void onMobsDie(Mob mob) {
 
     }
@@ -100,6 +105,12 @@ public class Prop extends Actor {
 
     }
     public void onDefense() {
+
+    }
+    public void onDamaged() {
+
+    }
+    public void beforeDamaged() {
 
     }
 

@@ -9,7 +9,6 @@ import com.watabou.utils.Random;
 
 public class CorpseVine extends Prop{
     {
-        maxCount=1;
         rate=0.25f;
     }
 

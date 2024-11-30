@@ -1555,12 +1555,19 @@ public class Hero extends Char {
 			else if (pointsInTalent(Talent.IRON_STOMACH) == 2)  dmg = Math.round(dmg*0.00f);
 		}
 
+		for (Prop prop:Dungeon.hero.props())//受到攻击前触发
+			prop.beforeDamaged();
+
+
 		int preHP = HP + shielding();
 		if (src instanceof Hunger) preHP -= shielding();
 		super.damage( dmg, src );
 		int postHP = HP + shielding();
 		if (src instanceof Hunger) postHP -= shielding();
 		int effectiveDamage = preHP - postHP;
+
+		for (Prop prop:Dungeon.hero.props())//受到攻击后触发
+			prop.onDamaged();
 
 		if (effectiveDamage <= 0) return;
 
@@ -2279,6 +2286,7 @@ public class Hero extends Char {
 		}else{
 			for(Prop prop:this.props()){
 				prop.onAttack();
+				prop.onAttack(enemy);
 			}
 		}
 
