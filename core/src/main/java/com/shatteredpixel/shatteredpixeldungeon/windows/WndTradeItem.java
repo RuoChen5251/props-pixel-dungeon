@@ -129,17 +129,18 @@ public class WndTradeItem extends WndInfoItem {
 
 		float pos = height;
 
-		int price = Shopkeeper.sellPrice( item );
-
+		final int price = Shopkeeper.sellPrice( item );
+		float priceDiscount = 1f;
 		Prop card = Dungeon.hero.prop(MembershipCard.class);
 		if (card!=null)
-			price= (int)(price*card.getFinallyRate());
+			priceDiscount *= card.getFinallyRate();
 		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
 		if (cert!=null){
-			price= (int)(price*cert.getFinallyRate());
+			priceDiscount*= cert.getFinallyRate();
+			item.quantity(item.quantity()*3);
 		}
 
-		RedButton btnBuy = new RedButton( Messages.get(this, "buy", price) ) {
+		RedButton btnBuy = new RedButton( Messages.get(this, "buy", (int)(price*priceDiscount)) ) {
 			@Override
 			protected void onClick() {
 				hide();
@@ -284,20 +285,19 @@ public class WndTradeItem extends WndInfoItem {
 		Item item = heap.pickUp();
 		if (item == null) return;
 		
-		int price = Shopkeeper.sellPrice( item );
+		final int price = Shopkeeper.sellPrice( item );
 
+		float priceDiscount = 1f;
 		Prop card = Dungeon.hero.prop(MembershipCard.class);
 		if (card!=null)
-			price= (int)(price*card.getFinallyRate());
-
+			priceDiscount *= card.getFinallyRate();
 		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
 		if (cert!=null){
-			price= (int)(price*cert.getFinallyRate());
-			item.quantity(item.quantity()*3);
+			priceDiscount*= cert.getFinallyRate();
 		}
 
-		Dungeon.gold -= price;
-		Catalog.countUses(Gold.class, price);
+		Dungeon.gold -= (int)(price*priceDiscount);
+		Catalog.countUses(Gold.class, (int)(price*priceDiscount));
 		
 		if (!item.doPickUp( Dungeon.hero )) {
 			Dungeon.level.drop( item, heap.pos ).sprite.drop();
