@@ -2232,12 +2232,17 @@ public class Hero extends Char {
 				&& !Dungeon.level.isGetProp
 				&& Dungeon.level.isLevelExplored(Dungeon.depth)
 		){
-			Game.runOnRenderThread(new Callback() {
-				@Override
-				public void call() {
-					GameScene.show(new WndProp(WndProp.CLEAR_ROOM));
-				}
-			});
+			if (Random.Float()<0.5f){
+				GLog.p(Messages.get(this,"find_prop"));
+				Game.runOnRenderThread(new Callback() {
+					@Override
+					public void call() {
+						GameScene.show(new WndProp(WndProp.CLEAR_ROOM));
+					}
+				});
+			}else{
+				GLog.p(Messages.get(this,"not_find_prop"));
+			}
 			Dungeon.level.isGetProp = true;
 		}
 	}

@@ -932,7 +932,7 @@ public abstract class Mob extends Char {
 					GameScene.show(new WndProp(WndProp.KILL_BOSS));
 				}
 			});
-		if (isRare()||isChampionEnemy())
+		if (isRare()&&Random.Float()<=0.3f||isChampionEnemy()&&Random.Float()<=0.5f)
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {

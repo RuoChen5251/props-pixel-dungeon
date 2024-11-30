@@ -63,6 +63,9 @@ public class Prop extends Actor {
     public String iconTextDisplay(){
         return count>1?count+"":"";
     }
+    public String logText(){
+        return Messages.get(this,"show");
+    }
 
     //some buffs may want to tint the base texture color of their icon
     public void tintIcon( Image icon ){

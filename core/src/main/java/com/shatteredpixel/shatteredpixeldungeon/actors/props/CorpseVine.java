@@ -4,6 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
 
 public class CorpseVine extends Prop{
@@ -21,6 +22,8 @@ public class CorpseVine extends Prop{
     public void onMobsDie(Mob mob) {
         if (Random.Float()<getFinallyRate()){
             float hp = mob.HT * getFinallyRate();
+            if (Dungeon.hero.HP<Dungeon.hero.HT)
+                GLog.p(logText());
             Dungeon.hero.heal(hp);
         }
 
