@@ -260,6 +260,13 @@ public class Hero extends Char {
 		}
 		HP = Math.min(HP, HT);
 	}
+	public void heal(float Amt){
+		int healAmt = Math.min((int)Amt,HT-HP);
+		if (healAmt>0){
+			HP += healAmt;
+			sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( healAmt ), FloatingText.HEALING );
+		}
+	}
 
 	public int STR() {
 		int strBonus = 0;
@@ -1488,6 +1495,9 @@ public class Hero extends Char {
 		if (rockArmor != null) {
 			damage = rockArmor.absorb(damage);
 		}
+
+		for (Prop prop:Dungeon.hero.props())//受到攻击时触发
+			prop.onDefense();
 		
 		return super.defenseProc( enemy, damage );
 	}

@@ -96,6 +96,9 @@ public class Prop extends Actor {
     public void onDelay(float time) {
 
     }
+    public void onDefense() {
+
+    }
 
 
     private static final String PROP_RATE    = "prop_rate";

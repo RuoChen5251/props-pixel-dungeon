@@ -12,13 +12,14 @@ public class PropGenerator {
 
     public static Class<? extends Prop>[] COMMON = new Class[]{
             BurningBlood.class, //燃烧之血
+            UnyieldingHeart.class,//不屈之心
     };
     public static Class<? extends Prop>[] UNCOMMON = new Class[]{
             MembershipCard.class,//会员卡
             WholesalerCertification.class,//批发商证明
     };
     public static Class<? extends Prop>[] RARE = new Class[]{
-
+            CorpseVine.class,//食尸藤
     };
     public static Class<? extends Prop>[] BOSS = new Class[]{
 
