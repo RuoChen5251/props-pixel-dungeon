@@ -6,7 +6,6 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class PropGenerator {
 
@@ -33,7 +32,7 @@ public class PropGenerator {
     public static Prop random() {
         ArrayList<Class<? extends Prop>> filter = new ArrayList<>();
         for (Prop prop:Dungeon.hero.props()){
-            if (!prop.canSuperposition())
+            if (prop.IsMaxLevel())
                 filter.add(prop.getClass());
         }
         ArrayList<Class<? extends Prop>> rare = new ArrayList<>(Arrays.asList(RARE));
@@ -76,7 +75,7 @@ public class PropGenerator {
     public static Prop randomBoss() {
         ArrayList<Class<? extends Prop>> filter = new ArrayList<>();
         for (Prop prop:Dungeon.hero.props()){
-            if (!prop.canSuperposition())
+            if (prop.IsMaxLevel())
                 filter.add(prop.getClass());
         }
         ArrayList<Class<? extends Prop>> boss = new ArrayList<>(Arrays.asList(BOSS));

@@ -1035,7 +1035,7 @@ public abstract class Char extends Actor {
 	public synchronized boolean add( Prop prop ) {
 		Prop cur = this.prop(prop.getClass());
 		if (cur!=null)
-			cur.count++;
+			cur.levelUp(1);
 		else
 			this.props.add(prop);
 		prop.onAdd();

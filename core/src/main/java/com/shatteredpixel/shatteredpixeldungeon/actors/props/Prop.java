@@ -3,23 +3,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Affection;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Entanglement;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Flow;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Obfuscation;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Repulsion;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Stone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Thorns;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.noosa.Image;
-import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
 public class Prop extends Actor {
@@ -28,24 +14,31 @@ public class Prop extends Actor {
     }
 
     public float rate;
-    public float rateByCount;
+    public float rateByLevel;
     public float value;
-    public float valueByCount;
-    public int count=1;
-    public int maxCount = 1;
-    public boolean canSuperposition(){
-        return maxCount>count;
+    public float valueByLevel;
+    public int level =1;
+    public int maxLevel = 1;
+    public boolean IsMaxLevel(){
+        return maxLevel == level;
     }
 
     public float getFinallyRate(){
-        float res = rate+(count-1)*rateByCount;
+        float res = rate+(level -1)* rateByLevel;
         return res>1?1:res;
     }
     public float getFinallyValue(){
-        return value+(count-1)*valueByCount;
+        return value+(level -1)* valueByLevel;
     }
-    public Prop setCount(int count){
-        this.count = count;
+    public Prop setLevel(int level){
+        this.level = level;
+        return this;
+    }
+    public Prop levelUp(int level){
+        if (level<=0) return this;
+        this.level+=level;
+        if (this.level>this.maxLevel)
+            this.level=maxLevel;
         return this;
     }
 
@@ -54,7 +47,7 @@ public class Prop extends Actor {
         return PropIndicator.NONE;
     }
     public String name() {
-        return Messages.get(this, "name");
+        return Messages.get(this, "name",level,maxLevel);
     }
 
     public String desc(){
@@ -62,7 +55,7 @@ public class Prop extends Actor {
     }
 
     public String iconTextDisplay(){
-        return count>1?count+"":"";
+        return level >1? level +"":"";
     }
     public String logText(){
         return Messages.get(this,"show");
@@ -123,7 +116,7 @@ public class Prop extends Actor {
         super.storeInBundle(bundle);
         bundle.put(PROP_RATE,rate);
         bundle.put(PROP_VALUE,value);
-        bundle.put(PROP_COUNT,count);
+        bundle.put(PROP_COUNT, level);
     }
 
     @Override
@@ -131,6 +124,6 @@ public class Prop extends Actor {
         super.restoreFromBundle(bundle);
         rate = bundle.getFloat(PROP_RATE);
         value = bundle.getFloat(PROP_VALUE);
-        count = bundle.getInt(PROP_COUNT);
+        level = bundle.getInt(PROP_COUNT);
     }
 }

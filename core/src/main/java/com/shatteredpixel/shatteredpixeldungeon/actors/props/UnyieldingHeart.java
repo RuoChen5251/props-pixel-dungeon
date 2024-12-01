@@ -1,20 +1,17 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
 public class UnyieldingHeart extends Prop{
     {
-        maxCount=10;
+        maxLevel =10;
         value=1;
-        valueByCount=1;
+        valueByLevel =1;
         rate=0.1f;
-        rateByCount=0.01f;
+        rateByLevel =0.01f;
     }
 
     @Override

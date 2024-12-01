@@ -12,9 +12,9 @@ import com.watabou.utils.Random;
 public class DarkBlood extends Prop{
     {
         rate=0.1f;
-        rateByCount = 0.05f;
+        rateByLevel = 0.05f;
         value=0;
-        valueByCount=0;
+        valueByLevel =0;
     }
 
     @Override
