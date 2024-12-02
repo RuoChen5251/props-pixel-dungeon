@@ -24,8 +24,7 @@ public class Prop extends Actor {
     }
 
     public float getFinallyRate(){
-        float res = rate+(level -1)* rateByLevel;
-        return res>1?1:res;
+        return rate+(level -1)* rateByLevel;
     }
     public float getFinallyValue(){
         return value+(level -1)* valueByLevel;

@@ -134,25 +134,40 @@ public class WndTradeItem extends WndInfoItem {
 		Prop card = Dungeon.hero.prop(MembershipCard.class);
 		if (card!=null)
 			priceDiscount *= card.getFinallyRate();
-		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
-		if (cert!=null){
-			priceDiscount*= cert.getFinallyRate();
-			item.quantity(item.quantity()*3);
-		}
 
 		RedButton btnBuy = new RedButton( Messages.get(this, "buy", (int)(price*priceDiscount)) ) {
 			@Override
 			protected void onClick() {
 				hide();
-				buy( heap );
+				buy( heap ,false);
 			}
 		};
 		btnBuy.setRect( 0, pos + GAP, width, BTN_HEIGHT );
 		btnBuy.icon(new ItemSprite(ItemSpriteSheet.GOLD));
-		btnBuy.enable( price <= Dungeon.gold );
+		btnBuy.enable( price*priceDiscount <= Dungeon.gold );
 		add( btnBuy );
 
 		pos = btnBuy.bottom();
+
+		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
+		if (cert!=null&&item.stackable){
+			priceDiscount *= cert.getFinallyRate();
+			RedButton btnBuyx3 = new RedButton( Messages.get(this, "buyx3",(int)cert.getFinallyValue(), (int)(price*priceDiscount)) ) {
+				@Override
+				protected void onClick() {
+					hide();
+					item.quantity((int)(item.quantity()*cert.getFinallyValue()));
+					buy( heap ,true);
+				}
+			};
+			btnBuyx3.setRect( 0, pos + GAP, width, BTN_HEIGHT );
+			btnBuyx3.icon(new ItemSprite(ItemSpriteSheet.GOLD));
+			btnBuyx3.enable( price*priceDiscount <= Dungeon.gold );
+			add( btnBuyx3 );
+			pos = btnBuyx3.bottom();
+		}
+
+
 
 		final MasterThievesArmband.Thievery thievery = Dungeon.hero.buff(MasterThievesArmband.Thievery.class);
 		if (thievery != null && !thievery.isCursed() && thievery.chargesToUse(item) > 0) {
@@ -280,7 +295,7 @@ public class WndTradeItem extends WndInfoItem {
 		}
 	}
 	
-	private void buy( Heap heap ) {
+	private void buy( Heap heap , boolean isX3) {
 		
 		Item item = heap.pickUp();
 		if (item == null) return;
@@ -289,10 +304,11 @@ public class WndTradeItem extends WndInfoItem {
 
 		float priceDiscount = 1f;
 		Prop card = Dungeon.hero.prop(MembershipCard.class);
-		if (card!=null)
+		if (card!=null)//会员卡打折
 			priceDiscount *= card.getFinallyRate();
+
 		Prop cert = Dungeon.hero.prop(WholesalerCertification.class);
-		if (cert!=null){
+		if (cert!=null&&isX3){//批发商
 			priceDiscount*= cert.getFinallyRate();
 		}
 
