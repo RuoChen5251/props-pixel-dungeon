@@ -6,4 +6,5 @@ sourceCompatibility = targetCompatibility = appJavaCompatibility
 dependencies {
     api project(':SPD-classes')
     implementation project(':services')
+    implementation 'org.reflections:reflections:0.10.2'
 }
