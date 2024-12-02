@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
+@PropAnnotation
 public class BurningBlood extends Prop{
     {
         rate  = 0.15f;
@@ -16,7 +17,7 @@ public class BurningBlood extends Prop{
 
     @Override
     public int icon(){
-        return PropIndicator.DEFAULT;
+        return PropIndicator.BURNING_BLOOD;
     }
 
     @Override

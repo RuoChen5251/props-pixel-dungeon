@@ -2,11 +2,11 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
 
+@PropAnnotation(type = PropRareType.Rare)
 public class CorpseVine extends Prop{
     {
         rate=0.25f;
@@ -14,7 +14,7 @@ public class CorpseVine extends Prop{
 
     @Override
     public int icon() {
-        return PropIndicator.DEFAULT;
+        return PropIndicator.CORPSE_VINE;
     }
 
     @Override

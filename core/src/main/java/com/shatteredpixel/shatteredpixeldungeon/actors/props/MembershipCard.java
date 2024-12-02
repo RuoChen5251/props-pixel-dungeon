@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 
+@PropAnnotation(type = PropRareType.UnCommon)
 public class MembershipCard extends Prop {
     {
         rate = 0.8f;
@@ -10,7 +11,7 @@ public class MembershipCard extends Prop {
 
     @Override
     public int icon() {
-        return PropIndicator.DEFAULT;
+        return PropIndicator.MEMBERSHIP_CARD;
     }
 
     @Override

@@ -24,6 +24,13 @@ public class PropIndicator extends Component {
     //transparent icon
     public static final int NONE = 127;
     public static final int DEFAULT = 0;
+    public static final int BURNING_BLOOD = 1;
+    public static final int MEMBERSHIP_CARD = 2;
+    public static final int PROP_NONE = 3;
+    public static final int UNYIELDING_HEART = 4;
+    public static final int DARK_BLOOD = 5;
+    public static final int CORPSE_VINE = 6;
+    public static final int WHOLESALER_CERTIFICATION = 7;
 
     public static final int SIZE_SMALL  = 7;
     public static final int SIZE_LARGE  = 16;

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
 
+@PropAnnotation(type = PropRareType.Rare)
 public class DarkBlood extends Prop{
     {
         rate=0.1f;
@@ -19,7 +20,7 @@ public class DarkBlood extends Prop{
 
     @Override
     public int icon() {
-        return PropIndicator.DEFAULT;
+        return PropIndicator.DARK_BLOOD;
     }
 
     @Override

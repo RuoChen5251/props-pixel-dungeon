@@ -48,7 +48,7 @@ public class PropButton extends IconButton {
     protected void layout() {
         super.layout();
 
-        if (textValue.width > width()){
+        if (textValue.width > width()||!large){
             textValue.scale.set(PixelScene.align(0.5f));
         } else {
             textValue.scale.set(1f);

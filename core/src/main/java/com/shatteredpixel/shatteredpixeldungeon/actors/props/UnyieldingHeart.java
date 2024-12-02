@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
+@PropAnnotation
 public class UnyieldingHeart extends Prop{
     {
         maxLevel =10;
@@ -16,7 +17,7 @@ public class UnyieldingHeart extends Prop{
 
     @Override
     public int icon() {
-        return PropIndicator.DEFAULT;
+        return PropIndicator.UNYIELDING_HEART;
     }
 
     @Override
