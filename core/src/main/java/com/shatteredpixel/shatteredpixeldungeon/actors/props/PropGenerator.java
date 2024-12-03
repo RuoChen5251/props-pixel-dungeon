@@ -13,10 +13,10 @@ import java.util.List;
 
 public class PropGenerator {
 
-    public static ArrayList<Class<? extends Prop>> COMMON;
-    public static ArrayList<Class<? extends Prop>> UNCOMMON;
-    public static ArrayList<Class<? extends Prop>> RARE;
-    public static ArrayList<Class<? extends Prop>> BOSS;
+    public static ArrayList<Class<? extends Prop>> COMMON = new ArrayList<>();
+    public static ArrayList<Class<? extends Prop>> UNCOMMON = new ArrayList<>();
+    public static ArrayList<Class<? extends Prop>> RARE = new ArrayList<>();
+    public static ArrayList<Class<? extends Prop>> BOSS = new ArrayList<>();
     public static boolean isInit = false;
     public static final float[] typeChances = new float[]{
             50,
