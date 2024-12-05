@@ -1955,12 +1955,6 @@ public class Hero extends Char {
 				updateHT( true );
 				attackSkill++;
 				defenseSkill++;
-				Game.runOnRenderThread(new Callback() {
-					@Override
-					public void call() {
-						GameScene.show(new WndProp(WndProp.LEVEL_UP));
-					}
-				});
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
 				this.exp = 0;
@@ -1986,6 +1980,14 @@ public class Hero extends Char {
 					WndHero.lastIdx = 1;
 				}
 			}
+
+			if(lvl%2==0)//每两级获得一次道具
+				Game.runOnRenderThread(new Callback() {
+					@Override
+					public void call() {
+						GameScene.show(new WndProp(WndProp.LEVEL_UP));
+					}
+				});
 			
 			Item.updateQuickslot();
 			
