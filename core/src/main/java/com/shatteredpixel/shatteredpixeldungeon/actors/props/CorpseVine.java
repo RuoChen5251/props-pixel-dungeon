@@ -10,6 +10,7 @@ import com.watabou.utils.Random;
 public class CorpseVine extends Prop{
     {
         rate=0.25f;
+        rateByLevel=0.15f;
     }
 
     @Override

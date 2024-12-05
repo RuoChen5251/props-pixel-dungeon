@@ -7,7 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 public class WholesalerCertification extends Prop{
     {
         rate = 2.5f;
+        rateByLevel = -0.01f;
         value = 3;
+        valueByLevel = 1;
     }
 
     @Override

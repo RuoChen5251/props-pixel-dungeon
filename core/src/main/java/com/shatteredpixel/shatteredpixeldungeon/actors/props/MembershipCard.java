@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 public class MembershipCard extends Prop {
     {
         rate = 0.8f;
+        rateByLevel = -0.05f;
     }
 
     @Override
