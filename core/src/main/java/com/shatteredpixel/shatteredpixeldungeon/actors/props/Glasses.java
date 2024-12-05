@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 
+@PropAnnotation
 public class Glasses extends Prop{
     {
         maxLevel=3;

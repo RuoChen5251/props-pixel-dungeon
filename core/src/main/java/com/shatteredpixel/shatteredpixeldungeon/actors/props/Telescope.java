@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 
+@PropAnnotation(type = PropRareType.Rare)
 public class Telescope extends Prop{
     {
         rate=2;
