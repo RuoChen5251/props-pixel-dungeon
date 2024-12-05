@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.EmblemCore;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -88,7 +89,11 @@ public class BrokenSeal extends Item {
 	}
 
 	public int maxShield( int armTier, int armLvl ){
-		return armTier + armLvl + Dungeon.hero.pointsInTalent(Talent.IRON_WILL);
+		int value = armTier + armLvl + Dungeon.hero.pointsInTalent(Talent.IRON_WILL);
+		EmblemCore ec = Dungeon.hero.prop(EmblemCore.class);
+		if (ec!=null)
+			value = (int)(ec.getFinallyRate()*value);
+		return value;
 	}
 
 	@Override
@@ -134,7 +139,11 @@ public class BrokenSeal extends Item {
 	@Override
 	//scroll of upgrade can be used directly once, same as upgrading armor the seal is affixed to then removing it.
 	public boolean isUpgradable() {
-		return level() == 0;
+		int max=1;
+		EmblemCore ec = Dungeon.hero.prop(EmblemCore.class);
+		if (ec!=null)
+			max = (int)ec.getFinallyValue();
+		return level() < max;
 	}
 
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
@@ -218,7 +227,11 @@ public class BrokenSeal extends Item {
 		@Override
 		public synchronized boolean act() {
 			if (Regeneration.regenOn() && shielding() < maxShield()) {
-				partialShield += 1/30f;
+				float rate = 1;
+				EmblemCore ec = Dungeon.hero.prop(EmblemCore.class);
+				if (ec!=null)
+					rate = ec.getFinallyRate();
+				partialShield += 1/30f*rate;
 			}
 			
 			while (partialShield >= 1){
