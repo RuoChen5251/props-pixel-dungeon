@@ -23,7 +23,7 @@ public class BurningBlood extends Prop{
     @Override
     public String desc() {
         return Messages.get(this, "desc"
-                ,Messages.decimalFormat("#.##", getFinallyRate()*100)
+                ,Messages.decimalFormat("#.##%", getFinallyRate())
                 ,Messages.decimalFormat("#.##", getFinallyValue()));
     }
 

@@ -21,6 +21,6 @@ public class Glasses extends Prop{
     @Override
     public String desc() {
         return Messages.get(this,"desc",(int)getFinallyValue(),
-                Messages.decimalFormat("#.##%",100*(getFinallyRate()-1)));
+                Messages.decimalFormat("#.##%",(getFinallyRate()-1)));
     }
 }

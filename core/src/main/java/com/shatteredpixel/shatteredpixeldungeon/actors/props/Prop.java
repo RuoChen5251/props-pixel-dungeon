@@ -6,12 +6,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.noosa.Image;
+import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
-public class Prop extends Actor {
-    {
-        actPriority = PROP_PRIO_AFTER; //low priority, towards the end of a turn
-    }
+public class Prop implements Bundlable {
 
     public float rate;
     public float rateByLevel;
@@ -117,22 +115,21 @@ public class Prop extends Actor {
     }
 
     //读写存档
-//    private static final String PROP_RATE    = "prop_rate";
-//    private static final String PROP_VALUE    = "prop_value";
+    private static final String PROP_RATE    = "prop_rate";
+    private static final String PROP_VALUE    = "prop_value";
     private static final String PROP_LEVEL = "prop_level";
+
     @Override
     public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-//        bundle.put(PROP_RATE,rate);
-//        bundle.put(PROP_VALUE,value);
+        bundle.put(PROP_RATE,rate);
+        bundle.put(PROP_VALUE,value);
         bundle.put(PROP_LEVEL, level);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-//        rate = bundle.getFloat(PROP_RATE);
-//        value = bundle.getFloat(PROP_VALUE);
+        rate = bundle.getFloat(PROP_RATE);
+        value = bundle.getFloat(PROP_VALUE);
         level = bundle.getInt(PROP_LEVEL);
     }
 }
