@@ -1560,7 +1560,7 @@ public class Hero extends Char {
 		}
 
 		for (Prop prop:Dungeon.hero.props())//受到攻击前触发
-			prop.beforeDamaged();
+			dmg = prop.beforeDamaged(dmg);
 
 
 		int preHP = HP + shielding();

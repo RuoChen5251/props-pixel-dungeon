@@ -110,8 +110,8 @@ public class Prop implements Bundlable {
     public void onDamaged() {
 
     }
-    public void beforeDamaged() {
-
+    public int beforeDamaged(int dmg) {
+        return dmg;
     }
 
     //读写存档
