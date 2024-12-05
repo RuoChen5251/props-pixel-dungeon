@@ -46,7 +46,17 @@ public class Prop extends Actor {
         return PropIndicator.NONE;
     }
     public String name() {
-        return Messages.get(this, "name",level,maxLevel);
+        StringBuilder ext = new StringBuilder(" ");
+        if (level<maxLevel){
+            ext.append(level).append("/").append(maxLevel);
+        } else{
+            int dis = level-maxLevel;
+            ext.append("MAX ");
+            for (int i = 0; i < dis; i++) {
+                ext.append("+");
+            }
+        }
+        return Messages.get(this, "name")+ext;
     }
 
     public String desc(){
