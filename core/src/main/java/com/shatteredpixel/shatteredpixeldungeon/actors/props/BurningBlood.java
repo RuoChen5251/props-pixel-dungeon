@@ -9,9 +9,9 @@ import com.watabou.utils.Random;
 public class BurningBlood extends Prop{
     {
         rate  = 0.15f;
-        rateByLevel = 0.05f;
+        rateByLevel = 0.01f;
         value = 3;
-        valueByLevel = 1;
+        valueByLevel = 0.5f;
         maxLevel = 10;
     }
 
