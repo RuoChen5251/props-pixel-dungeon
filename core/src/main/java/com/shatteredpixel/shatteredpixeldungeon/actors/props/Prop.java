@@ -20,7 +20,7 @@ public class Prop extends Actor {
     public int level =1;
     public int maxLevel = 1;
     public boolean IsMaxLevel(){
-        return maxLevel == level;
+        return maxLevel <= level;
     }
 
     public float getFinallyRate(){
@@ -106,23 +106,23 @@ public class Prop extends Actor {
 
     }
 
-
-    private static final String PROP_RATE    = "prop_rate";
-    private static final String PROP_VALUE    = "prop_value";
-    private static final String PROP_COUNT   = "prop_count";
+    //读写存档
+//    private static final String PROP_RATE    = "prop_rate";
+//    private static final String PROP_VALUE    = "prop_value";
+    private static final String PROP_LEVEL = "prop_level";
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
-        bundle.put(PROP_RATE,rate);
-        bundle.put(PROP_VALUE,value);
-        bundle.put(PROP_COUNT, level);
+//        bundle.put(PROP_RATE,rate);
+//        bundle.put(PROP_VALUE,value);
+        bundle.put(PROP_LEVEL, level);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
-        rate = bundle.getFloat(PROP_RATE);
-        value = bundle.getFloat(PROP_VALUE);
-        level = bundle.getInt(PROP_COUNT);
+//        rate = bundle.getFloat(PROP_RATE);
+//        value = bundle.getFloat(PROP_VALUE);
+        level = bundle.getInt(PROP_LEVEL);
     }
 }
