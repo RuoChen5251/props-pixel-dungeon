@@ -75,6 +75,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.props.BurningBlood;
+import com.shatteredpixel.shatteredpixeldungeon.actors.props.Glasses;
 import com.shatteredpixel.shatteredpixeldungeon.actors.props.Prop;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
@@ -541,6 +542,9 @@ public class Hero extends Char {
 		if (buff(Scimitar.SwordDance.class) != null){
 			accuracy *= 1.50f;
 		}
+		Glasses gl = this.prop(Glasses.class);
+		if (gl!=null)
+			accuracy *= gl.getFinallyRate();
 		
 		if (!RingOfForce.fightingUnarmed(this)) {
 			return (int)(attackSkill * accuracy * wep.accuracyFactor( this, target ));
