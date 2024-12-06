@@ -67,7 +67,8 @@ public class Item implements Bundlable {
 	
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
-	
+
+	public String customName="";
 	protected String defaultAction;
 	public boolean usesTargeting;
 
@@ -485,7 +486,9 @@ public class Item implements Bundlable {
 	}
 	
 	public String name() {
-		return trueName();
+		if (customName.trim().isEmpty())
+			return trueName();
+		return customName;
 	}
 	
 	public final String trueName() {
@@ -571,6 +574,7 @@ public class Item implements Bundlable {
 	private static final String CURSED_KNOWN	= "cursedKnown";
 	private static final String QUICKSLOT		= "quickslotpos";
 	private static final String KEPT_LOST       = "kept_lost";
+	private static final String CUSTOM_NAME       = "custom_name";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -579,6 +583,7 @@ public class Item implements Bundlable {
 		bundle.put( LEVEL_KNOWN, levelKnown );
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
+		bundle.put( CUSTOM_NAME, customName );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}

@@ -23,9 +23,14 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.InventoryPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.watabou.noosa.Image;
 
 import java.util.ArrayList;
 
@@ -69,8 +74,34 @@ public class WndUseItem extends WndInfoItem {
 				}
 				
 			}
+			Image renamebutton = Icons.get(Icons.MAGNIFY);
+			IconButton Rename = new IconButton(renamebutton) {
+				public String hoverText() {
+					return Messages.titleCase(Messages.get(WndGame.class, "rename"));
+				}
+
+				public void onClick() {
+					GameScene.show(new WndTextInput(Messages.get(WndGame.class, "dialog"), Messages.get(WndGame.class, "dialog_title"), item.name(), 20, false, Messages.get(WndGame.class, "dialog_rename"), Messages.get(WndGame.class, "dialog_revert")) {
+						public void onSelect(boolean name, String str) {
+							if (name) {
+								item.customName = str;
+							} else {
+								item.customName = "";
+							}
+
+							WndUseItem.this.hide();
+							GameScene.show(new WndUseItem(owner, item));
+						}
+					});
+				}
+			};
+			Rename.setRect((float)(super.width - 16), 0.0F, 16.0F, 16.0F);
+			this.add(Rename);
+
 			y = layoutButtons(buttons, width, y);
 		}
+
+
 		
 		resize( width, (int)(y) );
 	}
