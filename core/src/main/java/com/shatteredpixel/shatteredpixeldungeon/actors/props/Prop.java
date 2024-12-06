@@ -14,6 +14,7 @@ public class Prop implements Bundlable {
     public float rateByLevel;
     public float value;
     public float valueByLevel;
+    public float curTime=0;
     public int level =1;
     public int maxLevel = 1;
     public boolean IsMaxLevel(){
@@ -119,12 +120,14 @@ public class Prop implements Bundlable {
     private static final String PROP_RATE    = "prop_rate";
     private static final String PROP_VALUE    = "prop_value";
     private static final String PROP_LEVEL = "prop_level";
+    private static final String PROP_CUR_TIME="prop_cur_time";
 
     @Override
     public void storeInBundle(Bundle bundle) {
         bundle.put(PROP_RATE,rate);
         bundle.put(PROP_VALUE,value);
         bundle.put(PROP_LEVEL, level);
+        bundle.put(PROP_CUR_TIME,curTime);
     }
 
     @Override
@@ -132,5 +135,6 @@ public class Prop implements Bundlable {
         rate = bundle.getFloat(PROP_RATE);
         value = bundle.getFloat(PROP_VALUE);
         level = bundle.getInt(PROP_LEVEL);
+        curTime = bundle.getFloat(PROP_CUR_TIME);
     }
 }

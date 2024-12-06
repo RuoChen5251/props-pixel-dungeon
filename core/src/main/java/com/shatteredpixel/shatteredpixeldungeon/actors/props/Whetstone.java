@@ -25,7 +25,6 @@ public class Whetstone extends Prop{
     public int icon() {
         return PropIndicator.DEFAULT;
     }
-    private float curTime=0;
     @Override
     public void onDelay(float time) {
         curTime+=time;
@@ -33,18 +32,5 @@ public class Whetstone extends Prop{
             curTime=curTime-getFinallyValue();
             Dungeon.hero.add(new PropDamage().setLevel((int)getFinallyRate()));
         }
-    }
-
-    private static final String CUR_TIME="cur_time";
-    @Override
-    public void storeInBundle(Bundle bundle) {
-        super.storeInBundle(bundle);
-        bundle.put(CUR_TIME,curTime);
-    }
-
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        curTime = bundle.getFloat(CUR_TIME);
     }
 }
