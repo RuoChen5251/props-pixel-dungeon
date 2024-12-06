@@ -1,38 +1,45 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.sun.tools.javac.code.Attribute;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
-import org.reflections.Reflections;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PropGenerator {
 
+    public static Class<? extends Prop>[] ALL = new Class[]{
+            BurningBlood.class,
+            BrokenShadowCloak.class,
+            CorpseVine.class,
+            DarkBlood.class,
+            EmblemCore.class,
+            Glasses.class,
+            MembershipCard.class,
+            Sword.class,
+            Telescope.class,
+            UnyieldingHeart.class,
+            VampireTooth.class,
+            Whetstone.class,
+            WholesalerCertification.class
+    };
     public static ArrayList<Class<? extends Prop>> COMMON = new ArrayList<>();
     public static ArrayList<Class<? extends Prop>> UNCOMMON = new ArrayList<>();
     public static ArrayList<Class<? extends Prop>> RARE = new ArrayList<>();
     public static ArrayList<Class<? extends Prop>> BOSS = new ArrayList<>();
     public static boolean isInit = false;
     public static final float[] typeChances = new float[]{
-            50,
-            35,
-            15
+            60,
+            30,
+            10
     };
     private static void init(){
         if (!isInit){
-            // 扫描指定包（这里使用当前包）
-            Reflections reflections = new Reflections("com.shatteredpixel.shatteredpixeldungeon.actors.props");  // 替换为你的包名
-
-            // 获取所有继承自Prop的类
-            List<Class<? extends Prop>> subclasses = new ArrayList<>(reflections.getSubTypesOf(Prop.class));
 
             // 筛选出带有 @PropAnnotation 注解的类
-            for (Class<? extends Prop> cl:subclasses){
+            for (Class<? extends Prop> cl:ALL){
                 if (cl.isAnnotationPresent(PropAnnotation.class)){
                     PropAnnotation p = cl.getAnnotation(PropAnnotation.class);
                     if (!p.isSomeHeroClassOnly() || p.heroClass() == Dungeon.hero.heroClass){
