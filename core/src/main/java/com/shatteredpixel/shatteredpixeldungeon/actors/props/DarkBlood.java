@@ -26,7 +26,7 @@ public class DarkBlood extends Prop{
     }
 
     @Override
-    public void onAttack(Char ch) {
+    public void AfterAttack(Char ch) {
         if (ch instanceof NPC)
             return;
         if (Random.Float()<getFinallyRate()){

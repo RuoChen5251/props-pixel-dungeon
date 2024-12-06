@@ -1,6 +1,5 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -87,15 +86,12 @@ public class Prop implements Bundlable {
     public void onRemove() {
 
     }
-    public void onKill() {
+
+    public void afterAttack(Char ch) {
 
     }
-    public void onAttack() {
-
-    }
-
-    public void onAttack(Char ch) {
-
+    public int beforeAttack(Char ch,int damage) {
+        return damage;
     }
 
     public void onMobsDie(Mob mob) {
@@ -104,13 +100,18 @@ public class Prop implements Bundlable {
     public void onDelay(float time) {
 
     }
-    public void onDefense() {
+    public void onMove(float time){
 
     }
-    public void onDamaged() {
+    public void onWait(float time){
 
     }
-    public int beforeDamaged(int dmg) {
+    //实际受到伤害后触发 用于转伤或者根据伤害做什么
+    public void afterDamaged(int dmg, Object src) {
+
+    }
+    //受到伤害前触发 用于减伤之类的
+    public int beforeDamaged(int dmg,Object src) {
         return dmg;
     }
 

@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
@@ -21,9 +22,9 @@ public class PropDamage extends Prop{
     }
 
     @Override
-    public int beforeDamaged(int dmg) {
-        dmg += Random.IntRange(0,level);
-        return dmg;
+    public int beforeAttack(Char ch, int damage) {
+        damage += level;
+        return super.beforeAttack(ch, damage);
     }
 
     @Override

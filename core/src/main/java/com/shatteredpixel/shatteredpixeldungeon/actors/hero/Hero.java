@@ -74,7 +74,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
-import com.shatteredpixel.shatteredpixeldungeon.actors.props.BurningBlood;
 import com.shatteredpixel.shatteredpixeldungeon.actors.props.Glasses;
 import com.shatteredpixel.shatteredpixeldungeon.actors.props.Prop;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -802,8 +801,11 @@ public class Hero extends Char {
 		spendConstant( time );
 		next();
 
-		for (Prop prop:props())
+		for (Prop prop:props()){
 			prop.onDelay(time);
+			prop.onWait(time);
+		}
+
 	}
 
 	public void spendAndNext( float time ) {
@@ -811,10 +813,12 @@ public class Hero extends Char {
 		spend( time );
 		next();
 
-		for (Prop prop:props())
+		for (Prop prop:props()){
 			prop.onDelay(time);
+			prop.onMove(time);
+		}
 	}
-	
+
 	@Override
 	public boolean act() {
 		
@@ -1479,6 +1483,8 @@ public class Hero extends Char {
 			break;
 		default:
 		}
+		for (Prop prop:this.props())
+			damage = prop.beforeAttack(enemy,damage);
 		
 		return damage;
 	}
@@ -1499,9 +1505,6 @@ public class Hero extends Char {
 		if (rockArmor != null) {
 			damage = rockArmor.absorb(damage);
 		}
-
-		for (Prop prop:Dungeon.hero.props())//受到攻击时触发
-			prop.onDefense();
 		
 		return super.defenseProc( enemy, damage );
 	}
@@ -1560,7 +1563,7 @@ public class Hero extends Char {
 		}
 
 		for (Prop prop:Dungeon.hero.props())//受到攻击前触发
-			dmg = prop.beforeDamaged(dmg);
+			dmg = prop.beforeDamaged(dmg,src);
 
 
 		int preHP = HP + shielding();
@@ -1570,10 +1573,11 @@ public class Hero extends Char {
 		if (src instanceof Hunger) postHP -= shielding();
 		int effectiveDamage = preHP - postHP;
 
-		for (Prop prop:Dungeon.hero.props())//受到攻击后触发
-			prop.onDamaged();
 
 		if (effectiveDamage <= 0) return;
+
+		for (Prop prop:Dungeon.hero.props())//受到攻击后触发
+			prop.afterDamaged(effectiveDamage,src);
 
 		if (buff(Challenge.DuelParticipant.class) != null){
 			buff(Challenge.DuelParticipant.class).addDamage(effectiveDamage);
@@ -2284,16 +2288,6 @@ public class Hero extends Char {
 
 		if (hit && heroClass == HeroClass.DUELIST && wasEnemy){
 			Buff.affect( this, Sai.ComboStrikeTracker.class).addHit();
-		}
-		if (!enemy.isActive()){
-			for(Prop prop:this.props()){
-				prop.onKill();
-			}
-		}else{
-			for(Prop prop:this.props()){
-				prop.onAttack();
-				prop.onAttack(enemy);
-			}
 		}
 
 		curAction = null;
