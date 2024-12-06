@@ -35,7 +35,7 @@ public class UnyieldingHeart extends Prop{
     }
 
     @Override
-    public void onDefense() {
+    public void afterDamaged(int dmg, Object src) {
         if (Random.Float(0,1)<getFinallyRate()){
             Dungeon.hero.heal(getFinallyValue());
         }

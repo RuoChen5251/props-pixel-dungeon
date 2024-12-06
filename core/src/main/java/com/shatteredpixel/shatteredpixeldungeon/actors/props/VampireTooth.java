@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
@@ -14,7 +15,7 @@ public class VampireTooth extends Prop{
     }
 
     @Override
-    public void onAttack() {
+    public void afterAttack(Char ch) {
         if (Random.Float()<getFinallyRate()){
             Dungeon.hero.heal(getFinallyValue());
         }

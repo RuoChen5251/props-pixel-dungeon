@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
@@ -28,10 +29,9 @@ public class BurningBlood extends Prop{
     }
 
     @Override
-    public void onKill() {
-        if (Random.Float(0,1)<getFinallyRate()){
-            Dungeon.hero.heal(getFinallyValue());
-        }
+    public void afterAttack(Char ch) {
+        if (!ch.isActive())
+            if (Random.Float(0,1)<getFinallyRate())
+                Dungeon.hero.heal(getFinallyValue());
     }
-
 }
