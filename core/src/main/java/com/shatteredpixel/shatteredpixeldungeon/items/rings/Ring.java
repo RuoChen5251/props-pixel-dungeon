@@ -167,7 +167,9 @@ public class Ring extends KindofMisc {
 	
 	@Override
 	public String name() {
-		return isKnown() ? super.name() : Messages.get(Ring.class, gem);
+		if (customName.isEmpty())
+			return isKnown() ? super.name() : Messages.get(Ring.class, gem);
+		else return customName;
 	}
 
 	@Override

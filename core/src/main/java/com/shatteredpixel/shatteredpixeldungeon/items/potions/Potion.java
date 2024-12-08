@@ -373,7 +373,9 @@ public class Potion extends Item {
 	
 	@Override
 	public String name() {
-		return isKnown() ? super.name() : Messages.get(this, color);
+		if (customName.isEmpty())
+			return isKnown() ? super.name() : Messages.get(this, color);
+		else return customName;
 	}
 
 	@Override
