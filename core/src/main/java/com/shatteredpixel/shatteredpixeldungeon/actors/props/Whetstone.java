@@ -28,7 +28,7 @@ public class Whetstone extends Prop{
     @Override
     public void onDelay(float time) {
         curTime+=time;
-        if (curTime>getFinallyValue()){
+        while (curTime>getFinallyValue()){
             curTime=curTime-getFinallyValue();
             Dungeon.hero.add(new PropDamage().setLevel((int)getFinallyRate()));
         }
