@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
-@PropAnnotation(type = PropRareType.Rare)
+@PropAnnotation(type = PropRareType.Boss)
 public class KidneyStrike extends Prop{
     {
         maxLevel=5;
