@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 
 @PropAnnotation
 public class BackAttack extends Prop{
@@ -21,6 +22,6 @@ public class BackAttack extends Prop{
 
     @Override
     public int icon() {
-        return super.icon();
+        return PropIndicator.DEFAULT;
     }
 }
