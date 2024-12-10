@@ -1,8 +1,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.props;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
@@ -23,7 +25,7 @@ public class KidneyStrike extends Prop{
 
     @Override
     public int beforeAttack(Char ch, int damage) {
-        if (Random.Float()<=getFinallyRate()){
+        if (Random.Float()<=getFinallyRate()&&((Mob)ch).surprisedBy(Dungeon.hero)){
             if (ch.buff(Paralysis.class)==null){
                 Buff.affect(ch, Paralysis.class,getFinallyValue());
             }
