@@ -23,7 +23,7 @@ public class PropDamage extends Prop{
 
     @Override
     public int beforeAttack(Char ch, int damage) {
-        damage += level;
+        damage += Random.Int(0,level);
         return super.beforeAttack(ch, damage);
     }
 

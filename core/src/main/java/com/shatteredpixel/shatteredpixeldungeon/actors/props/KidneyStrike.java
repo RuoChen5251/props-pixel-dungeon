@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 import com.watabou.utils.Random;
 
-@PropAnnotation(type = PropRareType.Boss)
+@PropAnnotation(type = PropRareType.Rare)
 public class KidneyStrike extends Prop{
     {
         maxLevel=5;
