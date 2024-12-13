@@ -5,7 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.ui.PropIndicator;
 
-@PropAnnotation
+@PropAnnotation(type = PropRareType.UnCommon)
 public class BackAttack extends Prop{
     {
         maxLevel=10;
