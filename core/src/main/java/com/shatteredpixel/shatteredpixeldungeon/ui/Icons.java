@@ -104,6 +104,7 @@ public enum Icons {
 	SKULL,
 	BUSY,
 	COMPASS,
+	COMPASS_GREEN,
 	SLEEP,
 	ALERT,
 	LOST,
@@ -335,6 +336,9 @@ public enum Icons {
 				break;
 			case COMPASS:
 				icon.frame( icon.texture.uvRectBySize( 0, 88, 7, 5 ) );
+				break;
+			case COMPASS_GREEN:
+				icon.frame( icon.texture.uvRectBySize( 8, 88, 7, 5 ) );
 				break;
 			case SLEEP:
 				icon.frame( icon.texture.uvRectBySize( 16, 80, 9, 8 ) );

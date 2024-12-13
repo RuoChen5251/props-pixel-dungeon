@@ -68,6 +68,10 @@ public class Compass extends Image {
 				PointF center = Camera.main.center().offset( scroll );
 				angle = (float)Math.atan2( cellCenter.x - center.x, center.y - cellCenter.y ) * RAD_2_G;
 			}
+			if (Dungeon.level.isGetProp)
+				copy(Icons.COMPASS_GREEN.get());
+			else
+				copy( Icons.COMPASS.get() );
 		}
 	}
 }
