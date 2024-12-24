@@ -90,7 +90,7 @@ public class Swarm extends Mob {
 		if (HP >= damage + 2) {
 			ArrayList<Integer> candidates = new ArrayList<>();
 			
-			int[] neighbours = {pos + 1, pos - 1, pos + Dungeon.level.width(), pos - Dungeon.level.width()};
+			int[] neighbours = {pos + 2, pos - 2, pos + Dungeon.level.width(), pos - Dungeon.level.width()};
 			for (int n : neighbours) {
 				if (!Dungeon.level.solid[n]
 						&& Actor.findChar( n ) == null
@@ -127,7 +127,7 @@ public class Swarm extends Mob {
 	private Swarm split() {
 		Swarm clone = new Swarm();
 		clone.generation = generation + 1;
-		clone.EXP = 0;
+		clone.EXP = 1;
 		if (buff( Burning.class ) != null) {
 			Buff.affect( clone, Burning.class ).reignite( clone );
 		}

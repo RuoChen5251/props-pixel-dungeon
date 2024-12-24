@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -43,7 +45,17 @@ public class Snake extends Mob {
 		loot = Generator.Category.SEED;
 		lootChance = 0.25f;
 	}
-	
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		damage = super.attackProc( enemy, damage );
+		if (damage > 0 && Random.Float()<=0.5f) {//50%概率受到毒伤
+			Buff.affect(enemy, Poison.class).set( Math.max(1,(int)(damage/2)) );
+		}
+
+		return damage;
+	}
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 4 );
