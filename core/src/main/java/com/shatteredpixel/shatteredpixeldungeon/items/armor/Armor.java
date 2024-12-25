@@ -189,7 +189,7 @@ public class Armor extends EquipableItem {
 			seal = null;
 
 			if (detaching.level() > 0){
-				degrade();
+				degrade(detaching.level());
 			}
 			if (detaching.canTransferGlyph()){
 				inscribe(null);
