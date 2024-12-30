@@ -506,7 +506,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public String name() {
-		if (customName.isEmpty())
+		if (!customName.isEmpty())
 			return customName;
 		return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.name( super.name() ) : super.name();
 	}
